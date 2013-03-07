@@ -178,6 +178,9 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .post .interaction .commenters-number { font-size: 18px; font-weight: bold; }
 .post .interaction span.commenters-number-icon { background: url(img/users.png) no-repeat left center; border:none; display:inline-block; float:left; height:22px; padding:0; width:32px; }
 
+.interaction .show_evaluation .count_object_votes{ display: inline-block; border-left: 1px dotted #ccc; font-size: 13px; padding: 0 9px; font-weight: bold; color: #00a0d0; }
+.interaction .show_evaluation .count_object_votes .count_object_votes_icon{ float: left; width: 22px; height: 22px; background: url(img/poll.png) transparent center no-repeat; }
+
 /* evaluation */
 .post .evaluation { padding: 13px 0; }
 .post .evaluation p { text-transform: none; }
@@ -314,9 +317,9 @@ ul.commentlist > li.delegado:last-child, ul.children > li.conselheiro:last-child
 .tema .interaction div { float: left; height: 22px; }
 .tema .interaction a { font-weight: bold; }
 .tema .interaction .comments-number { width: 28px; height: 26px; margin-right: 9px; border-left: none; font-size: 13px; font-weight: bold; line-height: 18px; text-align: center; color: #fff; background: transparent url(img/balao-small.png) no-repeat; }
-.tema .interaction .commenters-number { width: 47px; padding: 0 9px 0 9px; border-left: 1px dotted #ccc; font-size: 13px; font-weight: bold; }
+.tema .interaction .commenters-number { width: 47px; padding: 0 0 0 10px; border-left: 1px dotted #ccc; font-size: 13px; font-weight: bold; }
 .tema .interaction span.commenters-number-icon { background: url(img/users-small.png) no-repeat left; border: none; display: inline-block; float:left; height:16px; margin: 3px 4px 0 0; width:24px; }
-.tema .interaction h1 { font-size: 14px; line-height: 22px; margin-bottom: 0; float: left; width: 440px; border-left: 1px dotted #ccc; padding-left: 9px; }
+.tema .interaction h1 { font-size: 14px; line-height: 22px; margin-bottom: 0; float: left; width: 440px; /*border-left: 1px dotted #ccc; padding-left: 9px;*/ margin: 0 0 10px 0; }
 
 
 

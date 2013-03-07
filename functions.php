@@ -401,7 +401,8 @@ add_action('wp_print_styles', function() {
     .post .interaction span.commenters-number-icon { background-color: <?php echo $linkColor; ?>; }
     .tema .interaction .comments-number { background-color: <?php echo $linkColor; ?>; }
     .tema .interaction .commenters-number span.commenters-number-icon { background-color: <?php echo $linkColor; ?>; }
-
+    .interaction .show_evaluation .count_object_votes span.count_object_votes_icon{ background-color: <?php echo $linkColor; ?>; }
+    .interaction .show_evaluation .count_object_votes{ color: <?php echo $linkColor; ?> }
     h1,h2,h3,h4,h5,h6 { color: <?php echo $titleColor; ?>; }
     #cronometro span { color: <?php echo $titleColor; ?>; }
     .post-content label { color: <?php echo $titleColor; ?>; }
