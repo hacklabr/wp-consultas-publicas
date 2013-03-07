@@ -2,6 +2,7 @@
 
 $post_type_object = get_post_type_object('object');
 $types = get_terms('object_type', 'orderby=id&order=ASC');
+$labels = get_theme_option('object_labels');
 
 get_header();
 
@@ -56,6 +57,7 @@ get_header();
                     echo '</p>';
                 endif; ?>
             </ul>
+            <?php html::part('add_new_object'); ?>
         </section>
     <?php endforeach; ?>
 </section>

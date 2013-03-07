@@ -80,9 +80,9 @@ get_header();
     }
     ?>
     
-    <p>
-        <input id="new_object_submit" type="submit" value="<?php _e('Enviar', 'consulta'); ?>">
-    </p>
+    <p><input id="new_object_submit" type="submit" value="<?php _e('Enviar', 'consulta'); ?>"></p>
+    
+    <p><a href="<?php echo home_url(get_theme_option('object_url')); ?>">Voltar para a listagem</a></p>
 </form>
 
 <?php get_footer(); ?>

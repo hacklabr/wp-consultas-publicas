@@ -1,5 +1,10 @@
-<?php $post_type_object = get_post_type_object('object'); ?>
-<?php get_header(); ?>    
+<?php 
+
+$post_type_object = get_post_type_object('object');
+
+get_header();
+
+?>
     
 <section id="main-section" class="span-15 prepend-1 append-1">
     <h2><?php echo $post_type_object->labels->name; ?></h2>
@@ -59,6 +64,7 @@
                <p><?php echo $post_type_object->labels->not_found; ?></p>
             <?php endif; ?>
         </ul>
+        <?php html::part('add_new_object'); ?>
     </section>    
 </section>
 <!-- #main-section -->
