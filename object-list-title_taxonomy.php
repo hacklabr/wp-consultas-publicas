@@ -31,7 +31,7 @@ $types = get_terms('object_type', 'orderby=id&order=ASC');
 					<li>
 						<div class="interaction clearfix">
 							<div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
-							<div class="commenters-number" title="número de pessoas que comentaram"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
+							<div class="commenters-number" title="<?php _e('número de pessoas que comentaram', 'consulta'); ?>"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
 							<?php html::part('show_evaluation'); ?>
 							<h1>
                                 <a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a>
