@@ -1,45 +1,32 @@
 <?php $post_type_object = get_post_type_object( 'object' ); ?>
-<?php get_header(); ?>	
-	
-    <section id="main-section" class="span-15 prepend-1 append-1">
-        
-        <h2><?php echo $post_type_object->labels->name; ?></h2>
-        
-        <?php if (is_tax('object_type')) : ?>
-        
-            <?php
+<?php get_header(); ?>
+
+<section id="main-section" class="span-15 prepend-1 append-1">
+    <h2><?php echo $post_type_object->labels->name; ?></h2>
     
-            
-            $termDiscription = term_description( '', get_query_var( 'taxonomy' ) );
-            
-            if($termDiscription != '') : ?>
-                <div class="ementa-do-tema">
-                    <h1><?php wp_title("",true); ?></h1>			
-                    <div class="append-bottom">
-                    
-                        
-                    </div>
-                    <?php echo $termDiscription; ?>
+    <?php if (is_tax('object_type')) : ?>
+        <?php
+        
+        $termDiscription = term_description( '', get_query_var( 'taxonomy' ) );
+        
+        if ($termDiscription != '') : ?>
+            <div class="ementa-do-tema">
+                <h1><?php wp_title("",true); ?></h1>
+                <div class="append-bottom"></div>
+                <?php echo $termDiscription; ?>
+            </div>
+        <?php endif; ?>
+    <?php else: ?>
+        <?php echo get_theme_option('object_list_intro'); ?>
+    <?php endif; ?>    
 
-                </div>
-            <?php endif; ?>
-        
-        <?php else: ?>
-        
-            <?php echo get_theme_option('object_list_intro'); ?>
-        
-        <?php endif; ?>    
-		
-		<section class="tema">
-			
-			
-			
-			<ul>
-
-			<?php if ( have_posts()) : while ( have_posts()) : the_post(); ?>
-                <li>
-                    
-                    <div class="interaction clearfix">
+    <section class="tema">
+        <ul>
+            <?php if (have_posts()) :
+                while (have_posts()) :
+                    the_post(); ?>
+                    <li>
+                        <div class="interaction clearfix">
                             <div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
                             <div class="commenters-number" title="<?php _e('número de pessoas que comentaram', 'consulta'); ?>"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
                             <h1>
@@ -52,8 +39,6 @@
                         </div>
                         <?php the_content(); ?>
                     </li>
-
-
                 <?php endwhile; ?> 
                 
                 <?php global $wp_query; if ( $wp_query->max_num_pages > 1 ) : ?>
@@ -62,18 +47,14 @@
                         <span class="alignright"><?php echo next_posts_link(__('Próximos','consulta')); ?></span>
                     </nav>
                     <!-- #posts-nav -->
-                <?php endif; ?>		
-                           			
-			<?php else : ?>
-			   <p><?php echo $post_type_object->labels->not_found; ?></p>
-			<?php endif; ?>
-			</ul>
-			
-		</section>    
-		
-    
-    </section>
-    <!-- #main-section -->
+                <?php endif; ?>
+            <?php else : ?>
+               <p><?php echo $post_type_object->labels->not_found; ?></p>
+            <?php endif; ?>
+        </ul>
+    </section>    
+</section>
+<!-- #main-section -->
     
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
