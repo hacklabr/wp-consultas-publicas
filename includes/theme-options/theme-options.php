@@ -1,27 +1,26 @@
 <?php
 
 function get_theme_default_options() {
-
     return array(
         'pagina_help' => site_url('sobre'),
         'pagina_sugerir' => site_url('sugerir-uma-meta'),
         'data_encerramento' => '2011-10-01',
         
         'object_labels' => ObjectPostType::get_default_labels(),
-        //'suggested_object_labels' => ObjectPostType::get_suggested_default_labels(),
         'taxonomy_labels' => ObjectPostType::get_taxonomy_default_labels(),
         
         'taxonomy_url' => 'tipo',
         'object_url' => 'objeto',
-        //'suggested_object_url' => 'objeto_sugerido',
         
-        //'allow_suggested' => false,
+        'allow_suggested' => false,
         'enable_taxonomy' => false,
         
         'list_type' => 'normal',
         'object_list_intro' => '',
 
         'use_evaluation' => false,
+        'evaluation_show_on_list' => false,
+        'evaluation_public_results' => false,
         'evaluation_labels' => array('label_1' => __('Concordo', 'consulta'), 'label_2' => __('Não concordo', 'consulta'), 'label_3' => '', 'label_4' => '', 'label_5' => ''),
         'evaluation_text' => __('Você concorda com esta proposta?', 'consulta'),
         'evaluation_type' => 'percentage',
@@ -33,9 +32,9 @@ function get_theme_default_options() {
 
 function get_theme_option($option_name) {
     $option = wp_parse_args( 
-                    get_option('theme_options'), 
-                    get_theme_default_options()
-                );
+        get_option('theme_options'), 
+        get_theme_default_options()
+    );
     return isset($option[$option_name]) ? $option[$option_name] : false;
 }
 
@@ -57,7 +56,6 @@ function theme_options_menu() {
     
     /* Top level menu */
     add_submenu_page('theme_options', $page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    
     
     add_menu_page($topLevelMenuLabel, $topLevelMenuLabel, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
     add_submenu_page('theme_options', 'Destaques', 'Destaques', 'manage_options', 'theme_options_destaques', 'theme_options_page_destaques_callback');
@@ -94,7 +92,6 @@ function theme_options_page_callback_function() {
     // foi atualizado. 
     global $wp_rewrite;
     $wp_rewrite->flush_rules();
-    
     ?>
 
     <style>
@@ -115,13 +112,10 @@ function theme_options_page_callback_function() {
     #abas-secoes a:hover { text-decoration: none;  }
     
     #exemplo_resultado { padding: 15px; border: 1px solid grey; }
-    
     </style>
     
     <div class="wrap span-20">
         <h2><?php echo __('Opções da Consulta', 'consulta'); ?></h2>
-        
-        
         
         <form action="options.php" method="post" class="clear prepend-top">
             <?php 
@@ -147,61 +141,60 @@ function theme_options_page_callback_function() {
                     <?php _e('Quais são os objetos da sua consulta? Itens de um projeto de lei? Metas de um Plano? Utilize esta página para dar o nome adequado aquilo que você está colocando sob consulta. Preencha as opções abaixo substituindo o termo "objeto" pelo nome do objeto da sua consulta.', 'consulta'); ?>
                     </p>
                     <table class="wp-list-table widefat fixed">
-                        
-                        
-                        
                         <tr>
-                        <td><label for="name">Nome do objeto da consulta (plural)</label></td>
-                        <td><input type="text" id="name" class="text" name="theme_options[object_labels][name]" value="<?php echo htmlspecialchars($options['object_labels']['name']); ?>"/></td>
-                        </tr>
-                        
-                        
-                        <tr>
-                        <td><label for="singular_name">Nome do objeto da consulta (singular)</label></td>
-                        <td><input type="text" id="singular_name" class="text" name="theme_options[object_labels][singular_name]" value="<?php echo htmlspecialchars($options['object_labels']['singular_name']); ?>"/></td>
-                        </tr>
-                        
-                        <tr>
-                        <td><label for="add_new">Adicionar novo</label></td>
-                        <td><input type="text" id="add_new" class="text" name="theme_options[object_labels][add_new]" value="<?php echo htmlspecialchars($options['object_labels']['add_new']); ?>"/></td>
-                        </tr>
-                        
-                        <tr>
-                        <td><label for="add_new_item">Adicionar novo objeto</label></td>
-                        <td><input type="text" id="add_new_item" class="text" name="theme_options[object_labels][add_new_item]" value="<?php echo htmlspecialchars($options['object_labels']['add_new_item']); ?>"/></td>
+                            <td><label for="name">Nome do objeto da consulta (plural)</label></td>
+                            <td><input type="text" id="name" class="text" name="theme_options[object_labels][name]" value="<?php echo htmlspecialchars($options['object_labels']['name']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="edit_item">Editar objeto</label></td>
-                        <td><input type="text" id="edit_item" class="text" name="theme_options[object_labels][edit_item]" value="<?php echo htmlspecialchars($options['object_labels']['edit_item']); ?>"/></td>
+                            <td><label for="singular_name">Nome do objeto da consulta (singular)</label></td>
+                            <td><input type="text" id="singular_name" class="text" name="theme_options[object_labels][singular_name]" value="<?php echo htmlspecialchars($options['object_labels']['singular_name']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="new_item">Novo objeto</label></td>
-                        <td><input type="text" id="new_item" class="text" name="theme_options[object_labels][new_item]" value="<?php echo htmlspecialchars($options['object_labels']['new_item']); ?>"/></td>
+                            <td><label for="add_new">Adicionar novo</label></td>
+                            <td><input type="text" id="add_new" class="text" name="theme_options[object_labels][add_new]" value="<?php echo htmlspecialchars($options['object_labels']['add_new']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="view_item">Ver objeto</label></td>
-                        <td><input type="text" id="view_item" class="text" name="theme_options[object_labels][view_item]" value="<?php echo htmlspecialchars($options['object_labels']['view_item']); ?>"/></td>
+                            <td><label for="add_new_item">Adicionar novo objeto</label></td>
+                            <td><input type="text" id="add_new_item" class="text" name="theme_options[object_labels][add_new_item]" value="<?php echo htmlspecialchars($options['object_labels']['add_new_item']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="search_items">Buscar objetos</label></td>
-                        <td><input type="text" id="search_items" class="text" name="theme_options[object_labels][search_items]" value="<?php echo htmlspecialchars($options['object_labels']['search_items']); ?>"/></td>
+                            <td><label for="edit_item">Editar objeto</label></td>
+                            <td><input type="text" id="edit_item" class="text" name="theme_options[object_labels][edit_item]" value="<?php echo htmlspecialchars($options['object_labels']['edit_item']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="not_found">Nenhum Objeto Encontrado</label></td>
-                        <td><input type="text" id="not_found" class="text" name="theme_options[object_labels][not_found]" value="<?php echo htmlspecialchars($options['object_labels']['not_found']); ?>"/></td>
+                            <td><label for="new_item">Novo objeto</label></td>
+                            <td><input type="text" id="new_item" class="text" name="theme_options[object_labels][new_item]" value="<?php echo htmlspecialchars($options['object_labels']['new_item']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="not_found_in_trash">Nenhum Objeto na Lixeira</label></td>
-                        <td><input type="text" id="not_found_in_trash" class="text" name="theme_options[object_labels][not_found_in_trash]" value="<?php echo htmlspecialchars($options['object_labels']['not_found_in_trash']); ?>"/></td>
+                            <td><label for="view_item">Ver objeto</label></td>
+                            <td><input type="text" id="view_item" class="text" name="theme_options[object_labels][view_item]" value="<?php echo htmlspecialchars($options['object_labels']['view_item']); ?>"/></td>
                         </tr>
-                        
                         <tr>
-                        <td><label for="object_url">Endereço base para os objetos da consulta</label></td>
-                        <td><?php echo site_url(); ?>/<input type="text" id="object_url" class="text" name="theme_options[object_url]" value="<?php echo htmlspecialchars($options['object_url']); ?>"/></td>
+                            <td><label for="search_items">Buscar objetos</label></td>
+                            <td><input type="text" id="search_items" class="text" name="theme_options[object_labels][search_items]" value="<?php echo htmlspecialchars($options['object_labels']['search_items']); ?>"/></td>
                         </tr>
-                        
+                        <tr>
+                            <td><label for="not_found">Nenhum Objeto Encontrado</label></td>
+                            <td><input type="text" id="not_found" class="text" name="theme_options[object_labels][not_found]" value="<?php echo htmlspecialchars($options['object_labels']['not_found']); ?>"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="not_found_in_trash">Nenhum Objeto na Lixeira</label></td>
+                            <td><input type="text" id="not_found_in_trash" class="text" name="theme_options[object_labels][not_found_in_trash]" value="<?php echo htmlspecialchars($options['object_labels']['not_found_in_trash']); ?>"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="object_url">Endereço base para os objetos da consulta</label></td>
+                            <td><?php echo site_url(); ?>/<input type="text" id="object_url" class="text" name="theme_options[object_url]" value="<?php echo htmlspecialchars($options['object_url']); ?>"/></td>
+                        </tr>
                     </table>
+                </div>
+            </div>
+            
+            <div class="span-20 ">
+                <div class="span-6 last">
+                    <h3><?php echo __('Objeto criados por usuários', 'consulta'); ?></h3>
                     
+                    <input type="checkbox" id="allow_suggested" name="theme_options[allow_suggested]" <?php checked('on', $options['allow_suggested']); ?> />
+                    <label for="allow_suggested"><?php echo __('Usuários podem criar novos objetos na consulta', 'consulta'); ?></label>
                 </div>
             </div>
             
@@ -218,55 +211,52 @@ function theme_options_page_callback_function() {
                     
                     <div id="taxonomy_labels_container">
                     <table class="wp-list-table widefat fixed">
-                        
                         <tr>
-                        <td><label for="name">Nome da taxonomia (plural)</label></td>
-                        <td><input type="text" id="name" class="text" name="theme_options[taxonomy_labels][name]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['name']); ?>"/></td>
+                            <td><label for="name">Nome da taxonomia (plural)</label></td>
+                            <td><input type="text" id="name" class="text" name="theme_options[taxonomy_labels][name]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['name']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="singular_name">Nome da taxonomia (singular)</label></td>
-                        <td><input type="text" id="singular_name" class="text" name="theme_options[taxonomy_labels][singular_name]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['singular_name']); ?>"/></td>
+                            <td><label for="singular_name">Nome da taxonomia (singular)</label></td>
+                            <td><input type="text" id="singular_name" class="text" name="theme_options[taxonomy_labels][singular_name]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['singular_name']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="add_new_item">Adicionar novo tipo</label></td>
-                        <td><input type="text" id="add_new_item" class="text" name="theme_options[taxonomy_labels][add_new_item]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['add_new_item']); ?>"/></td>
+                            <td><label for="add_new_item">Adicionar novo tipo</label></td>
+                            <td><input type="text" id="add_new_item" class="text" name="theme_options[taxonomy_labels][add_new_item]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['add_new_item']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="edit_item">Editar tipo</label></td>
-                        <td><input type="text" id="edit_item" class="text" name="theme_options[taxonomy_labels][edit_item]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['edit_item']); ?>"/></td>
+                            <td><label for="edit_item">Editar tipo</label></td>
+                            <td><input type="text" id="edit_item" class="text" name="theme_options[taxonomy_labels][edit_item]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['edit_item']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="new_item_name">Nome do novo tipo</label></td>
-                        <td><input type="text" id="new_item_name" class="text" name="theme_options[taxonomy_labels][new_item_name]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['new_item_name']); ?>"/></td>
+                            <td><label for="new_item_name">Nome do novo tipo</label></td>
+                            <td><input type="text" id="new_item_name" class="text" name="theme_options[taxonomy_labels][new_item_name]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['new_item_name']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="search_items">Buscar tipos</label></td>
-                        <td><input type="text" id="search_items" class="text" name="theme_options[taxonomy_labels][search_items]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['search_items']); ?>"/></td>
+                            <td><label for="search_items">Buscar tipos</label></td>
+                            <td><input type="text" id="search_items" class="text" name="theme_options[taxonomy_labels][search_items]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['search_items']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="all_items">Todos os tipos</label></td>
-                        <td><input type="text" id="all_items" class="text" name="theme_options[taxonomy_labels][all_items]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['all_items']); ?>"/></td>
+                            <td><label for="all_items">Todos os tipos</label></td>
+                            <td><input type="text" id="all_items" class="text" name="theme_options[taxonomy_labels][all_items]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['all_items']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="parent_item">Tipo pai</label></td>
-                        <td><input type="text" id="parent_item" class="text" name="theme_options[taxonomy_labels][parent_item]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['parent_item']); ?>"/></td>
+                            <td><label for="parent_item">Tipo pai</label></td>
+                            <td><input type="text" id="parent_item" class="text" name="theme_options[taxonomy_labels][parent_item]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['parent_item']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="parent_item_colon">Tipo pai:</label></td>
-                        <td><input type="text" id="parent_item_colon" class="text" name="theme_options[taxonomy_labels][parent_item_colon]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['parent_item_colon']); ?>"/></td>
+                            <td><label for="parent_item_colon">Tipo pai:</label></td>
+                            <td><input type="text" id="parent_item_colon" class="text" name="theme_options[taxonomy_labels][parent_item_colon]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['parent_item_colon']); ?>"/></td>
                         </tr>
                         <tr>
-                        <td><label for="update_item">Atualizar tipo</label></td>
-                        <td><input type="text" id="update_item" class="text" name="theme_options[taxonomy_labels][update_item]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['update_item']); ?>"/></td>
+                            <td><label for="update_item">Atualizar tipo</label></td>
+                            <td><input type="text" id="update_item" class="text" name="theme_options[taxonomy_labels][update_item]" value="<?php echo htmlspecialchars($options['taxonomy_labels']['update_item']); ?>"/></td>
                         </tr>
-                        
                         <tr>
-                        <td><label for="taxonomy_url">Endereço base para a taxonomia do objeto</label></td>
-                        <td><?php echo site_url(); ?>/<input type="text" id="taxonomy_url" class="text" name="theme_options[taxonomy_url]" value="<?php echo htmlspecialchars($options['taxonomy_url']); ?>"/></td>
+                            <td><label for="taxonomy_url">Endereço base para a taxonomia do objeto</label></td>
+                            <td><?php echo site_url(); ?>/<input type="text" id="taxonomy_url" class="text" name="theme_options[taxonomy_url]" value="<?php echo htmlspecialchars($options['taxonomy_url']); ?>"/></td>
                         </tr>
                     </table>
                     </div>
-                    
                 </div>
             </div>
             </div>
@@ -289,8 +279,6 @@ function theme_options_page_callback_function() {
                     <br/><br/>
                     <?php _e('Texto introdutório para a página de listagem de objetos', 'consulta'); ?><br/>
                     <textarea name="theme_options[object_list_intro]" id="object_list_intro" ><?php echo $options['object_list_intro']; ?></textarea>
-                    
-                    
                 </div>
             </div>
             </div>
@@ -306,6 +294,12 @@ function theme_options_page_callback_function() {
                     <label for="use_evaluation"><?php _e('Permitir que os usuários avaliem os objetos', 'consulta'); ?></label>
 
                     <div id="use_evaluation_labels_container">
+                        <br/><br/>
+                        <input type="checkbox" id="evaluation_show_on_list" name="theme_options[evaluation_show_on_list]" value="on" <?php checked('on', $options['evaluation_show_on_list']); ?> />
+                        <label for="evaluation_show_on_list"><?php _e('Exibir avaliação na listagem de objetos por título ou por título e taxonomia', 'consulta'); ?></label>
+                        <br/><br/>
+                        <input type="checkbox" id="evaluation_public_results" name="theme_options[evaluation_public_results]" value="on" <?php checked('on', $options['evaluation_public_results']); ?> />
+                        <label for="evaluation_public_results"><?php _e('Exibir resultado da avaliação para os usuários', 'consulta'); ?></label>
                         <br/><br/>
                         <?php _e('Texto introdutório para a avaliação quantitativa', 'consulta'); ?><br/>
                         <textarea name="theme_options[evaluation_text]" id="object_list_intro" ><?php echo $options['evaluation_text']; ?></textarea>
@@ -348,9 +342,7 @@ function theme_options_page_callback_function() {
                             <?php html::image('ex_avaliacao_perce.png', __('Exemplo de resultado', 'consulta'), array('id' => 'perce') ); ?>
                             <?php html::image('ex_avaliacao_media.png', __('Exemplo de resultado', 'consulta'), array('id' => 'media') ); ?>
                         </div>
-                        
                     </div>
-                    
                 </div>
             </div>
             </div>
@@ -374,8 +366,8 @@ function theme_options_page_callback_function() {
                         </td>
                         </tr>
                         <tr>
-                        <td><label for="data_encerramento"><?php _e('Data de encerramento da consulta', 'consulta'); ?></label></td>
-                        <td><input type="text" id="data_encerramento" class="text" name="theme_options[data_encerramento]" value="<?php echo htmlspecialchars($options['data_encerramento']); ?>"/></td>
+                            <td><label for="data_encerramento"><?php _e('Data de encerramento da consulta', 'consulta'); ?></label></td>
+                            <td><input type="text" id="data_encerramento" class="text" name="theme_options[data_encerramento]" value="<?php echo htmlspecialchars($options['data_encerramento']); ?>"/></td>
                         </tr>
                     </table>
                 </div>
@@ -393,7 +385,6 @@ function theme_options_page_callback_function() {
 }
 
 function theme_options_page_destaques_callback() {
-        
 ?>
     <div class="wrap span-20">
         <h2><?php echo __('Theme Options', 'consulta'); ?></h2>
@@ -408,28 +399,24 @@ function theme_options_page_destaques_callback() {
                     <h2>Destaque principal</h2>
                     <table>
                         <tr>
-                        <td><label for="1_titulo">Título</label></td>
-                        <td><input type="text" id="1_titulo" class="text" name="destaques[1_titulo]" value="<?php echo htmlspecialchars($options['1_titulo']); ?>"/></td>
+                            <td><label for="1_titulo">Título</label></td>
+                            <td><input type="text" id="1_titulo" class="text" name="destaques[1_titulo]" value="<?php echo htmlspecialchars($options['1_titulo']); ?>"/></td>
                         </tr>
-                        
                         <tr>
-                        <td><label for="1_data">Data</label></td>
-                        <td><input type="text" id="1_data" class="text" name="destaques[1_data]" value="<?php echo htmlspecialchars($options['1_data']); ?>"/></td>
+                            <td><label for="1_data">Data</label></td>
+                            <td><input type="text" id="1_data" class="text" name="destaques[1_data]" value="<?php echo htmlspecialchars($options['1_data']); ?>"/></td>
                         </tr>
-                        
                         <tr>
-                        <td><label for="1_link">Link</label></td>
-                        <td><input type="text" id="1_link" class="text" name="destaques[1_link]" value="<?php echo htmlspecialchars($options['1_link']); ?>"/></td>
+                            <td><label for="1_link">Link</label></td>
+                            <td><input type="text" id="1_link" class="text" name="destaques[1_link]" value="<?php echo htmlspecialchars($options['1_link']); ?>"/></td>
                         </tr>
-                        
                         <tr>
-                        <td><label for="1_imagem">Imagem 230x176(opcional)</label></td>
-                        <td><input type="text" id="1_imagem" class="text" name="destaques[1_imagem]" value="<?php echo htmlspecialchars($options['1_imagem']); ?>"/></td>
+                            <td><label for="1_imagem">Imagem 230x176(opcional)</label></td>
+                            <td><input type="text" id="1_imagem" class="text" name="destaques[1_imagem]" value="<?php echo htmlspecialchars($options['1_imagem']); ?>"/></td>
                         </tr>
-                        
                         <tr>
-                        <td><label for="1_txt">Texto</label>
-                        <textarea id="1_txt" class="text" name="destaques[1_txt]" ><?php echo htmlspecialchars($options['1_txt']); ?></textarea>
+                            <td><label for="1_txt">Texto</label>
+                            <textarea id="1_txt" class="text" name="destaques[1_txt]" ><?php echo htmlspecialchars($options['1_txt']); ?></textarea>
                         </tr>
                     </table>
                     
@@ -465,7 +452,6 @@ function theme_options_page_destaques_callback() {
                     
                     <td><label for="3_txt">Texto</label>
                     <textarea id="3_txt" class="text" name="destaques[3_txt]" ><?php echo htmlspecialchars($options['3_txt']); ?></textarea>
-                    
                 </div>
             </div>
             

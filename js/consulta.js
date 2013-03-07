@@ -1,26 +1,4 @@
 jQuery(document).ready(function(){
-	
-    /*
-    // Submenu temas
-    jQuery('#temas-item').mouseenter(function() {
-
-		jQuery(this).addClass('active');
-		//jQuery('#overlay').css('height', jQuery(document).height() + 'px').fadeIn();
-		jQuery('.temas-menu').fadeIn();
-        
-    });
-	jQuery('#main-nav').mouseleave(function() {
-		//jQuery('#overlay').fadeOut();
-		jQuery('.temas-menu').fadeOut();
-		jQuery('.active').removeClass('active');
-      
-    });
-	jQuery('#main-menu > li').mouseenter(function() {
-		jQuery(this).addClass('active');
-		//jQuery('#overlay').css('height', jQuery(document).height() + 'px').fadeIn();
-        
-    });
-    */
     jQuery('#interact-comentar, .comment-reply-link').click(function() {
         jQuery('#sugestao_alteracao').attr('checked', false);
         jQuery('#comment_type').hide();
@@ -113,7 +91,5 @@ jQuery(document).ready(function(){
                 
             }
         });
-        
-    
     });
 });

@@ -22,9 +22,8 @@
 		<?php html::part('interaction'); ?>
 		
 	</footer>
-    
-    <div id="evaluation_container">
-    <?php html::part('evaluation')?>
+    <div class="evaluation_container">
+        <?php html::part('evaluation')?>
     </div>
 </article>
 <!-- .post -->

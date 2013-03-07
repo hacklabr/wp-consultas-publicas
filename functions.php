@@ -8,7 +8,6 @@ include dirname(__FILE__).'/includes/exportador-metas-sugeridas.php';
 
 add_action( 'after_setup_theme', 'consulta_setup' );
 function consulta_setup() {
-
     load_theme_textdomain('consulta', TEMPLATEPATH . '/languages' );
     
     // POST THUMBNAILS
@@ -75,12 +74,51 @@ function consulta_addJS() {
     wp_enqueue_script('consulta', get_bloginfo('stylesheet_directory') . '/js/consulta.js',array('jquery', 'scrollto'));
     wp_localize_script('consulta', 'consulta', array( 'ajaxurl' => admin_url('admin-ajax.php') ));
     wp_enqueue_script('hl', get_bloginfo('stylesheet_directory') . '/js/hl.js', array('consulta'));
-    if ( is_singular() ) wp_enqueue_script( 'comment-reply' );
+    
+    if (get_post_type() == 'object') {
+        wp_enqueue_script('evaluation', get_bloginfo('stylesheet_directory') . '/js/evaluation.js', array('jquery'));
+    }
+    
+    if (is_singular()) wp_enqueue_script( 'comment-reply' );
     
     if (is_admin())
         wp_enqueue_script('cadastro', get_bloginfo('stylesheet_directory') . '/js/cadastro.js', array('jquery'));
 }
 add_action('wp_print_scripts', 'consulta_addJS');
+
+// paginas customizadas
+
+add_filter('query_vars', 'consulta_custom_query_vars');
+add_filter('rewrite_rules_array', 'consulta_custom_url_rewrites');
+add_action('template_redirect', 'consulta_template_redirect_intercept');
+
+function consulta_custom_query_vars($public_query_vars) {
+    $public_query_vars[] = "tpl";
+
+    return $public_query_vars;
+}
+
+function consulta_custom_url_rewrites($rules) {
+    $new_rules = array(
+        "novo/?$" => "index.php?tpl=novo",
+    );
+
+    return $new_rules + $rules;
+}
+
+function consulta_template_redirect_intercept() {
+    global $wp_query;
+
+    switch ($wp_query->get('tpl')) {
+        case 'novo':
+            $wp_query->is_home = false;
+            
+            require(TEMPLATEPATH . '/tpl-novo.php');
+            die;
+        default:
+            break;
+    }
+}
 
 
 // CUSTOM MENU
@@ -415,9 +453,27 @@ function get_votes($postId) {
 }
 
 /**
+ * Return the number of votes in an
+ * object.
+ * 
+ * @param int $postId
+ * @return int
+ */
+function count_votes($postId) {
+    $votes = 0;
+
+    foreach (range(1, 5) as $i) {
+        $votes += count(get_post_meta($postId, '_label_' . $i));
+    }
+    
+    return $votes;
+}
+
+/**
  * Compute user vote for object evaluation
  */
 add_action('wp_ajax_object_evaluation', function() {
+    $data = array();
     $userVote = filter_input(INPUT_POST, 'userVote', FILTER_SANITIZE_STRING);
     $postId = filter_input(INPUT_POST, 'postId', FILTER_SANITIZE_NUMBER_INT);
     
@@ -431,10 +487,13 @@ add_action('wp_ajax_object_evaluation', function() {
     global $post;
     
     $post = get_post($postId);
+    
+    ob_start();
     html::part('evaluation');
+    $data['html'] = ob_get_clean();
+    $data['count'] = count_votes($postId);
     
-    die;
-    
+    die(json_encode($data));
 });
 
 function consulta_default_menu() {
@@ -522,3 +581,22 @@ function consulta_get_number_alternatives() {
     return $i;
 
 }
+
+/*
+ * Não página a listagem de objetos quando exibe apenas o
+ * título.
+ * 
+ * @param WP_Query $query
+ * @return null
+ */
+function consulta_pre_get_posts($query) {
+    if (is_admin() || !$query->is_main_query()) {
+        return;
+    }
+
+    if ($query->get('post_type') && $query->is_archive && (get_theme_option('list_type') == 'title' || get_theme_option('list_type') == 'title_taxonomy')) {
+        $query->set('posts_per_page', -1);
+        return;
+    }
+}
+add_action('pre_get_posts', 'consulta_pre_get_posts', 1);
