@@ -13,6 +13,11 @@ function get_theme_default_options() {
         'object_url' => 'objeto',
         
         'allow_suggested' => false,
+        'suggested_labels' => array(
+            'title' => 'Adicionar novo objeto',
+            'description' => 'Utilize essa página para criar um novo objeto.',
+            'success' => 'Objeto criado com sucesso!',
+        ),
         'enable_taxonomy' => false,
         
         'list_type' => 'normal',
@@ -195,6 +200,24 @@ function theme_options_page_callback_function() {
                     
                     <input type="checkbox" id="allow_suggested" name="theme_options[allow_suggested]" <?php checked('on', $options['allow_suggested']); ?> />
                     <label for="allow_suggested"><?php echo __('Usuários podem criar novos objetos na consulta', 'consulta'); ?></label>
+                    
+                    <div id="allow_suggested_labels_container">
+                        <p><?php _e('Use os campos abaixo para controlar os textos exibidos na página que permite ao usuário criar um novo objeto.', 'consulta'); ?></p>
+                        <table class="wp-list-table widefat fixed">
+                            <tr>
+                                <td><label for="suggested_object_title">Título da página</label></td>
+                                <td><input type="text" id="suggested_object_title" class="text" name="theme_options[suggested_labels][title]" value="<?php echo htmlspecialchars($options['suggested_labels']['title']); ?>"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="suggested_object_description">Descrição</label></td>
+                                <td><input type="text" id="suggested_object_description" class="text" name="theme_options[suggested_labels][description]" value="<?php echo htmlspecialchars($options['suggested_labels']['description']); ?>"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="suggested_object_success">Objeto criado</label></td>
+                                <td><input type="text" id="suggested_object_success" class="text" name="theme_options[suggested_labels][success]" value="<?php echo htmlspecialchars($options['suggested_labels']['success']); ?>"/></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
             

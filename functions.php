@@ -414,6 +414,10 @@ add_action('wp_print_styles', function() {
     .hl-lightbox-close { background-color: <?php echo $titleColor; ?>; }
     
     .evaluation_bar { background-color: <?php echo $linkColor; ?> }
+    
+    #new_object .clearfix > label { color: <?php echo $titleColor; ?>; }
+    #new_object_submit { background: <?php echo $titleColor; ?>; }
+    #new_object_submit:hover { background: <?php echo $linkColor; ?>; }
     </style>
     <?php
     

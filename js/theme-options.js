@@ -1,9 +1,10 @@
 jQuery(document).ready(function() {
+    //TODO: refactor to remove code duplication
     jQuery('#allow_suggested').click(function() {
         if (jQuery(this).is(':checked'))
-            jQuery('#suggested_objects_container').slideDown('slow');
+            jQuery('#allow_suggested_labels_container').slideDown('slow');
         else
-            jQuery('#suggested_objects_container').slideUp('slow');
+            jQuery('#allow_suggested_labels_container').slideUp('slow');
     });
     
     jQuery('#enable_taxonomy').click(function() {
@@ -20,9 +21,9 @@ jQuery(document).ready(function() {
             jQuery('#use_evaluation_labels_container').slideUp('slow');
         }
     });
-    
+
     if (!jQuery('#allow_suggested').is(':checked')) {
-        jQuery('#suggested_objects_container').hide();
+        jQuery('#allow_suggested_labels_container').hide();
     }
         
     if (!jQuery('#enable_taxonomy').is(':checked')) {
@@ -36,8 +37,6 @@ jQuery(document).ready(function() {
     jQuery('#data_encerramento').datepicker({dateFormat: 'yy-mm-dd'});   
     
     //abas
-    
-    
     jQuery('#abas-secoes li a').click(function() {
         jQuery('#abas-secoes li').removeClass('active');
         jQuery(this).parent('li').addClass('active');
@@ -46,7 +45,6 @@ jQuery(document).ready(function() {
     });
     
     jQuery('#abas-secoes li.active a').click();
-    
     
     jQuery('.radio_evaluation_type').click(function() {
         var image = 'perce';
@@ -58,6 +56,4 @@ jQuery(document).ready(function() {
         
     });
     jQuery('.radio_evaluation_type:checked').click();
-    
-    
 });
