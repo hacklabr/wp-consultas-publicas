@@ -13,7 +13,7 @@
 
         <p><?php echo get_theme_option('evaluation_text'); ?></p>
 
-        <?php if (get_theme_option('evaluation_public_results')) : ?>
+        <?php if (get_theme_option('evaluation_public_results') || current_user_can('manage_options')) : ?>
             <?php if ($evaluation_type == 'percentage'): ?>
                 <?php $perceVotes = consulta_get_votes_percentage($votes); ?>
                 
