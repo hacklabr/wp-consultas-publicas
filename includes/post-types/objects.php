@@ -17,8 +17,8 @@ class ObjectPostType {
                     'new_item' => __('Novo objeto', 'consulta'),
                     'view_item' => __('Ver objeto', 'consulta'),
                     'search_items' => __('Buscar objetos', 'consulta'),
-                    'not_found' =>  __('Nenhuma Objeto Encontrado', 'consulta'),
-                    'not_found_in_trash' => __('Nenhum Objeto na Lixeira', 'consulta'),
+                    'not_found' =>  __('Nenhum objeto encontrado', 'consulta'),
+                    'not_found_in_trash' => __('Nenhum objeto na lixeira', 'consulta'),
                  );
     }
 
