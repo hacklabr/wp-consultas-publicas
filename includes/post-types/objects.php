@@ -2,8 +2,8 @@
 class ObjectPostType {
 
     static function init(){
-        add_action( 'init', array(__CLASS__, 'register') ,0);
-        add_action( 'init', array(__CLASS__, 'register_taxonomies') ,0);
+        add_action('init', array(__CLASS__, 'register'), 0);
+        add_action('init', array(__CLASS__, 'register_taxonomies'), 0);
     }
     
     static function get_default_labels() {
@@ -94,3 +94,50 @@ class ObjectPostType {
 }
 
 ObjectPostType::init();
+
+add_action('restrict_manage_posts', 'consulta_restrict_listings');
+/**
+ * Na listagem de objetos no admin adiciona uma opção para exibir
+ * somente os objetos criados pelos admins ou então os objetos criados
+ * pelos demais usuários.
+ * 
+ * @return null
+ */
+function consulta_restrict_listings() {
+    global $typenow;
+    global $wp_query;
+     
+    if ($typenow == 'object' && get_theme_option('allow_suggested')) {
+        ?>
+        <select class="postform" id="who_created" name="who_created">
+            <option value="all" <?php isset($_REQUEST['who_created']) ? selected('all', $_REQUEST['who_created']) : ''; ?>>Todos os objetos</option>
+            <option value="admin_created" <?php isset($_REQUEST['who_created']) ? selected('admin_created', $_REQUEST['who_created']) : ''; ?>>Objetos criados pelos admins</option>
+            <option value="user_created" <?php isset($_REQUEST['who_created']) ? selected('user_created', $_REQUEST['who_created']) : ''; ?>>Objetos criados pelos usuários</option>
+        </select>
+        <?php
+   }
+}
+
+add_action('pre_get_posts', 'consulta_filter_by_user_created');
+/**
+ * Na listagem de objetos no admin permite exibir somente
+ * objetos criados pelos admins ou somente objetos criados pelos
+ * demais usuários.
+ * 
+ * @param unknown $query
+ * @return null
+ */
+function consulta_filter_by_user_created($query) {
+    global $pagenow, $typenow;
+    
+    if ($pagenow == 'edit.php' && $typenow == 'object' && isset($_REQUEST['who_created']) && $_REQUEST['who_created'] != 'all') {
+        if ($_REQUEST['who_created'] == 'user_created') {
+            $user_created = true;
+        } else {
+            $user_created = false;
+        }
+
+        $query->set('meta_key', '_user_created');
+        $query->set('meta_value', $user_created);
+    }
+}
