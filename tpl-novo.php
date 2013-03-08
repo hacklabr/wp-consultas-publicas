@@ -32,6 +32,10 @@ if (!empty($_POST) && wp_verify_nonce($_POST['create_new_object'], 'consulta_cre
             update_post_meta($postId, '_user_created', true);
             wp_set_post_terms($postId, $object_types, 'object_type');
             $success = true;
+            
+            // hack para não exibir o formulário preenchido depois que um objeto é criado
+            $_POST = array();
+            $object_types = array();
         } else {
             $errors[] = __('Não foi possível criar o objeto.', 'consulta');
         }
