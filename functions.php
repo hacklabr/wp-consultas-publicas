@@ -596,7 +596,7 @@ function consulta_get_number_alternatives() {
  * @return null
  */
 function consulta_pre_get_posts($query) {
-    if (is_admin() || !$query->is_main_query()) {
+    if (is_admin()) {
         return;
     }
 
@@ -606,11 +606,15 @@ function consulta_pre_get_posts($query) {
             $query->set('posts_per_page', -1);
         }
         
-        if ((get_theme_option('list_type') == 'title' || get_theme_option('list_type') == 'title_taxonomy')) {
+        if ($query->is_main_query() && (get_theme_option('list_type') == 'title' || get_theme_option('list_type') == 'title_taxonomy')) {
             // não exibe objetos criados pelo usuário na listagem padrão quando exibe apenas o título ou título organizado por taxonomia
             $query->set('meta_key', '_user_created');
             $query->set('meta_value', false);
         }
+        
+        // permite que o admin defina a ordenação dos objetos
+        $query->set('order', get_theme_option('list_order'));
+        $query->set('orderby', get_theme_option('list_order_by'));
     }
 }
 add_action('pre_get_posts', 'consulta_pre_get_posts', 1);
