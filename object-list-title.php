@@ -39,7 +39,7 @@ get_header();
         </ul>
 
         <?php if ($suggested->have_posts()) : ?>
-        <h2><?php echo $suggestedLabels['list']; ?></h2>
+        <h4><?php echo $suggestedLabels['list']; ?></h4>
         <ul>
             <?php
                 while ($suggested->have_posts()) {
