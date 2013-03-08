@@ -4,6 +4,7 @@ class ObjectPostType {
     static function init(){
         add_action('init', array(__CLASS__, 'register'), 0);
         add_action('init', array(__CLASS__, 'register_taxonomies'), 0);
+        add_action('save_post', array(__CLASS__, 'savePost'));
     }
     
     static function get_default_labels() {
@@ -90,6 +91,23 @@ class ObjectPostType {
             );
             
         }
+    }
+    
+    /**
+     * Chamado sempre que um post é salvo
+     * 
+     * @return null
+     */
+    static function savePost($postId) {
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+        
+        if ((isset($_POST['post_type']) && $_POST['post_type'] != 'object') || !is_admin()) {
+            return;
+        }
+        
+        update_post_meta($postId, '_user_created', false);
     }
 }
 
