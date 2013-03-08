@@ -41,14 +41,16 @@ get_header();
                                 <small><?php echo filesize(WP_CONTENT_DIR . '/uploads/access_log/total/' . $post->ID); ?> acessos</small>
                                 <?php endif; ?>
                             </h1>
-                            
+
+                            <?php if (get_post_meta($post->ID, '_user_created', true)) : ?>
+                                <span class="user_created"><img src="<?php bloginfo('template_directory') ?>/img/user-sugest.png" title="Sugestão do usuário" alt="Sugestão do usuário" /></span>
+                            <?php endif; ?>
+
                             <div class="clear"></div>
                             
                             <div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
                             <div class="commenters-number" title="<?php _e('número de pessoas que comentaram', 'consulta'); ?>"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
-                            <?php if (get_post_meta($post->ID, '_user_created', true)) : ?>
-                                <p><?php _e('Sugestão de um usuário', 'consulta'); ?></p>
-                            <?php endif; ?>
+                        
                         </div>
                         <?php the_content(); ?>
                     </li>
