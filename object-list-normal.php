@@ -34,8 +34,6 @@ get_header();
                     the_post(); ?>
                     <li>
                         <div class="interaction clearfix">
-                            <div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
-                            <div class="commenters-number" title="<?php _e('número de pessoas que comentaram', 'consulta'); ?>"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
                             <h1>
                                 <a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a>
                                 
@@ -43,6 +41,14 @@ get_header();
                                 <small><?php echo filesize(WP_CONTENT_DIR . '/uploads/access_log/total/' . $post->ID); ?> acessos</small>
                                 <?php endif; ?>
                             </h1>
+                            
+                            <div class="clear"></div>
+                            
+                            <div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
+                            <div class="commenters-number" title="<?php _e('número de pessoas que comentaram', 'consulta'); ?>"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
+                            <?php if (get_post_meta($post->ID, '_user_created', true)) : ?>
+                                <p><?php _e('Sugestão de um usuário', 'consulta'); ?></p>
+                            <?php endif; ?>
                         </div>
                         <?php the_content(); ?>
                     </li>

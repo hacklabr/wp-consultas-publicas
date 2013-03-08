@@ -2,6 +2,10 @@
 
 $post_type_object = get_post_type_object('object');
 
+// objetos criados pelos usuários
+$suggested = new WP_Query(array('posts_per_page' => -1, 'post_type' => 'object', 'meta_key' => '_user_created', 'meta_value' => true));
+$suggestedLabels = get_theme_option('suggested_labels');
+
 get_header();
 
 ?>
@@ -24,46 +28,31 @@ get_header();
     
     <section class="tema">
         <ul>
-            <?php if ( have_posts()) :
-                while ( have_posts()) : the_post(); ?>
-                    <li>
-                        <div class="interaction clearfix">
-    
-                            <h1>
-                                <?php if ( current_user_can('manage_options') && file_exists(WP_CONTENT_DIR . '/uploads/access_log/total/' . $post->ID)): ?>
-                                <small><?php echo filesize(WP_CONTENT_DIR . '/uploads/access_log/total/' . $post->ID); ?> acessos</small><br />
-                                <?php endif; ?>
-                                <a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a>
-                            </h1>
-    
-                            <div class="clear"></div>
-    
-                            <div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
-                            <div class="commenters-number" title="<?php _e('número de pessoas que comentaram', 'consulta'); ?>"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
-                            <?php html::part('show_evaluation'); ?>
-    
-    
-                        </div>
-                        <?php if (get_theme_option('evaluation_show_on_list')) : ?>                     
-                            <div class="evaluation_container" style="display: none;">
-                                <?php html::part('evaluation')?>
-                            </div>
-                        <?php endif; ?>
-                    </li>
-                <?php endwhile; ?> 
-                
-                <?php global $wp_query;
-                if ( $wp_query->max_num_pages > 1 ) : ?>
-                    <nav id="posts-nav" class="clearfix">
-                        <span class="alignleft"><?php previous_posts_link(__('Anteriores','consulta')); ?></span>
-                        <span class="alignright"><?php echo next_posts_link(__('Próximos','consulta')); ?></span>
-                    </nav>
-                    <!-- #posts-nav -->
-                <?php endif; ?>        
-            <?php else : ?>
-               <p><?php echo $post_type_object->labels->not_found; ?></p>
-            <?php endif; ?>
+            <?php
+            if (have_posts()) {
+                while (have_posts()) {
+                    the_post();
+                    html::part('loop-single-list-title');
+                }
+            }
+            ?>
         </ul>
+
+        <?php if ($suggested->have_posts()) : ?>
+        <h2><?php echo $suggestedLabels['list']; ?></h2>
+        <ul>
+            <?php
+                while ($suggested->have_posts()) {
+                    $suggested->the_post();
+                    html::part('loop-single-list-title');
+                }
+            ?>
+        </ul>
+        <?php endif; ?>
+        
+        <?php if (!have_posts() && !$suggested->have_posts()) : ?>
+            <p><?php echo $post_type_object->labels->not_found; ?></p>
+        <?php endif; ?>
         <?php html::part('add_new_object'); ?>
     </section>    
 </section>

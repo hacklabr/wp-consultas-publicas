@@ -588,8 +588,8 @@ function consulta_get_number_alternatives() {
 }
 
 /*
- * Não página a listagem de objetos quando exibe apenas o
- * título.
+ * Configurações customizadas antes de pegar os
+ * posts que serão exibidos.
  * 
  * @param WP_Query $query
  * @return null
@@ -599,9 +599,17 @@ function consulta_pre_get_posts($query) {
         return;
     }
 
-    if ($query->get('post_type') && $query->is_archive && (get_theme_option('list_type') == 'title' || get_theme_option('list_type') == 'title_taxonomy')) {
-        $query->set('posts_per_page', -1);
-        return;
+    if ($query->get('post_type') == 'object' && $query->is_archive) {
+        // não página a listagem de objetos quando exibe apenas o título.
+        if (get_theme_option('list_type') == 'title') {
+            $query->set('posts_per_page', -1);
+        }
+        
+        if ((get_theme_option('list_type') == 'title' || get_theme_option('list_type') == 'title_taxonomy')) {
+            // não exibe objetos criados pelo usuário na listagem padrão quando exibe apenas o título ou título organizado por taxonomia
+            $query->set('meta_key', '_user_created');
+            $query->set('meta_value', false);
+        }
     }
 }
 add_action('pre_get_posts', 'consulta_pre_get_posts', 1);
