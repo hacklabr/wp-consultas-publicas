@@ -34,11 +34,10 @@ get_header();
                     the_post(); ?>
                     <li>
                         <div class="interaction clearfix">
-                            
-                            
-
                             <h1>
-                                <div class="suggested-user-icon"><img src="<?php bloginfo('template_directory') ?>/img/star.png" title="Sugestão do usuário" alt="Sugestão do usuário" /></div>
+                                <?php if (get_post_meta($post->ID, '_user_created', true)) :?>
+                                    <div class="suggested-user-icon"><img src="<?php bloginfo('template_directory') ?>/img/star.png" title="Sugestão do usuário" alt="Sugestão do usuário" /></div>
+                                <?php endif; ?>
 
                                 <a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a>
                                 
@@ -51,11 +50,6 @@ get_header();
                             
                             <div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
                             <div class="commenters-number" title="<?php _e('número de pessoas que comentaram', 'consulta'); ?>"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
-                            
-                            <?php if (get_post_meta($post->ID, '_user_created', true)) :?>
-
-                            <?php endif; ?>
-
                         </div>
                         <?php the_content(); ?>
                     </li>
