@@ -1,6 +1,6 @@
 <?php 
 
-if (!get_theme_option('allow_suggested') || !is_user_logged_in()) {
+if (!get_theme_option('allow_suggested') || !is_user_logged_in() || is_consulta_encerrada()) {
     wp_redirect(home_url('404'), 302 );
     exit();
 }
