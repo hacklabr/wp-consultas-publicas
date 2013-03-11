@@ -418,7 +418,8 @@ add_action('wp_print_styles', function() {
     #new_object .clearfix > label { color: <?php echo $titleColor; ?>; }
     #new_object_submit { background: <?php echo $titleColor; ?>; }
     #new_object_submit:hover { background: <?php echo $linkColor; ?>; }
-    .interaction span.user_created { background-color: <?php echo $linkColor; ?>; }
+    .suggested-user-icon{ background: <?php echo $linkColor; ?>; }
+
     </style>
     <?php
     

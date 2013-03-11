@@ -180,7 +180,15 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 
 .interaction .show_evaluation { display: inline-block; border-left: 1px dotted #ccc; font-size: 13px; padding: 0 9px; font-weight: bold; }
 .interaction .show_evaluation .count_object_votes_icon { float: left; width: 22px; height: 22px; background: url(img/poll.png) transparent center no-repeat; }
-.interaction span.user_created { margin: 1px 0 0 9px; float: left; width: 16px; height: 16px; }
+
+.interaction .suggested-user-icon{
+	width: 16px !important;
+	height: 16px !important;
+	float: left;
+	display: inline-block;
+	margin-right: 5px;
+	margin-top: 2px;
+}
 
 /* evaluation */
 .post .evaluation { padding: 13px 0; }
