@@ -17,7 +17,9 @@ get_header();
         <section class="tema">
             <?php
             
-            $objects = new WP_Query('posts_per_page=-1&post_type=object&object_type=' . $type->slug);
+            $objects = new WP_Query(
+                array('posts_per_page' => -1, 'post_type' => 'object', 'object_type' => $type->slug, 'meta_key' => '_user_created', 'meta_value' => false)
+            );
             $suggested_objects = new WP_Query(
                 array('posts_per_page' => -1, 'post_type' => 'object', 'meta_key' => '_user_created', 'meta_value' => true, 'object_type' => $type->slug)
             );

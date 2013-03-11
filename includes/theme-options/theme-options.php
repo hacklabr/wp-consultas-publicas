@@ -29,7 +29,14 @@ function get_theme_default_options() {
         'use_evaluation' => false,
         'evaluation_show_on_list' => false,
         'evaluation_public_results' => false,
-        'evaluation_labels' => array('label_1' => __('Concordo', 'consulta'), 'label_2' => __('Não concordo', 'consulta'), 'label_3' => '', 'label_4' => '', 'label_5' => ''),
+        'evaluation_labels' => array(
+            'button' => 'Votar!',
+            'label_1' => __('Concordo', 'consulta'),
+            'label_2' => __('Não concordo', 'consulta'),
+            'label_3' => '',
+            'label_4' => '',
+            'label_5' => '',
+        ),
         'evaluation_text' => __('Você concorda com esta proposta?', 'consulta'),
         'evaluation_type' => 'percentage',
         
@@ -347,6 +354,10 @@ function theme_options_page_callback_function() {
                         <textarea name="theme_options[evaluation_text]" id="object_list_intro" ><?php echo $options['evaluation_text']; ?></textarea>
                         <br/><br/>
                         <table class="wp-list-table widefat fixed">
+                            <tr>
+                                <td><label for="evaluate_button"><?php _e('Texto do botão para avaliar exibido na listagem de objetos', 'consulta'); ?></label></td>
+                                <td><input type="text" id="evaluate_button" class="text" name="theme_options[evaluation_labels][button]" value="<?php echo htmlspecialchars($options['evaluation_labels']['button']); ?>"/></td>
+                            </tr>
                             <tr>
                                 <td><label for="label_1"><?php _e('Nome do primeiro valor (1)', 'consulta'); ?></label></td>
                                 <td><input type="text" id="label_1" class="text" name="theme_options[evaluation_labels][label_1]" value="<?php echo htmlspecialchars($options['evaluation_labels']['label_1']); ?>"/></td>
