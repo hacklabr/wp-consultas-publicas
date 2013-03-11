@@ -61,7 +61,6 @@ add_action('admin_print_styles-toplevel_page_theme_options', 'theme_options_css'
 
 function theme_options_init() {
     register_setting('theme_options_options', 'theme_options', 'theme_options_validate_callback_function');
-    register_setting('theme_options_destaques', 'destaques');
 }
 
 function theme_options_menu() {
@@ -73,7 +72,6 @@ function theme_options_menu() {
     add_submenu_page('theme_options', $page_title, $menu_title, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
     
     add_menu_page($topLevelMenuLabel, $topLevelMenuLabel, 'manage_options', 'theme_options', 'theme_options_page_callback_function');
-    add_submenu_page('theme_options', 'Destaques', 'Destaques', 'manage_options', 'theme_options_destaques', 'theme_options_page_destaques_callback');
 }
 
 function theme_options_js() {
@@ -437,81 +435,3 @@ function theme_options_page_callback_function() {
 
 }
 
-function theme_options_page_destaques_callback() {
-?>
-    <div class="wrap span-20">
-        <h2><?php echo __('Theme Options', 'consulta'); ?></h2>
-
-        <form action="options.php" method="post" class="clear prepend-top">
-            <?php settings_fields('theme_options_destaques'); ?>
-            <?php $options = get_option('destaques'); ?>
-            
-            <div class="span-20 ">
-                <div class="span-6 last">
-                    
-                    <h2>Destaque principal</h2>
-                    <table>
-                        <tr>
-                            <td><label for="1_titulo">Título</label></td>
-                            <td><input type="text" id="1_titulo" class="text" name="destaques[1_titulo]" value="<?php echo htmlspecialchars($options['1_titulo']); ?>"/></td>
-                        </tr>
-                        <tr>
-                            <td><label for="1_data">Data</label></td>
-                            <td><input type="text" id="1_data" class="text" name="destaques[1_data]" value="<?php echo htmlspecialchars($options['1_data']); ?>"/></td>
-                        </tr>
-                        <tr>
-                            <td><label for="1_link">Link</label></td>
-                            <td><input type="text" id="1_link" class="text" name="destaques[1_link]" value="<?php echo htmlspecialchars($options['1_link']); ?>"/></td>
-                        </tr>
-                        <tr>
-                            <td><label for="1_imagem">Imagem 230x176(opcional)</label></td>
-                            <td><input type="text" id="1_imagem" class="text" name="destaques[1_imagem]" value="<?php echo htmlspecialchars($options['1_imagem']); ?>"/></td>
-                        </tr>
-                        <tr>
-                            <td><label for="1_txt">Texto</label>
-                            <textarea id="1_txt" class="text" name="destaques[1_txt]" ><?php echo htmlspecialchars($options['1_txt']); ?></textarea>
-                        </tr>
-                    </table>
-                    
-                    <h2>Destaque 2</h2>
-                    <td><label for="2_titulo">Título</label></td>
-                    <td><input type="text" id="2_titulo" class="text" name="destaques[2_titulo]" value="<?php echo htmlspecialchars($options['2_titulo']); ?>"/></td>
-                    
-                    <td><label for="2_data">Data</label></td>
-                    <td><input type="text" id="2_data" class="text" name="destaques[2_data]" value="<?php echo htmlspecialchars($options['2_data']); ?>"/></td>
-                    
-                    <td><label for="2_link">Link</label></td>
-                    <td><input type="text" id="2_link" class="text" name="destaques[2_link]" value="<?php echo htmlspecialchars($options['2_link']); ?>"/></td>
-                    
-                    <td><label for="2_imagem">Imagem 270x132 (opcional)</label></td>
-                    <td><input type="text" id="2_imagem" class="text" name="destaques[2_imagem]" value="<?php echo htmlspecialchars($options['2_imagem']); ?>"/></td>
-                    
-                    <td><label for="2_txt">Texto</label>
-                    <textarea id="2_txt" class="text" name="destaques[2_txt]" ><?php echo htmlspecialchars($options['2_txt']); ?></textarea>
-                    
-                    
-                    <h2>Destaque 3</h2>
-                    <td><label for="3_titulo">Título</label></td>
-                    <td><input type="text" id="3_titulo" class="text" name="destaques[3_titulo]" value="<?php echo htmlspecialchars($options['3_titulo']); ?>"/></td>
-                    
-                    <td><label for="3_data">Data</label></td>
-                    <td><input type="text" id="3_data" class="text" name="destaques[3_data]" value="<?php echo htmlspecialchars($options['3_data']); ?>"/></td>
-                    
-                    <td><label for="3_link">Link</label></td>
-                    <td><input type="text" id="3_link" class="text" name="destaques[3_link]" value="<?php echo htmlspecialchars($options['3_link']); ?>"/></td>
-                    
-                    <td><label for="3_imagem">Imagem 270x132 (opcional) </label></td>
-                    <td><input type="text" id="3_imagem" class="text" name="destaques[3_imagem]" value="<?php echo htmlspecialchars($options['3_imagem']); ?>"/></td>
-                    
-                    <td><label for="3_txt">Texto</label>
-                    <textarea id="3_txt" class="text" name="destaques[3_txt]" ><?php echo htmlspecialchars($options['3_txt']); ?></textarea>
-                </div>
-            </div>
-            
-            <p class="textright clear prepend-top">
-                <input type="submit" class="button-primary" value="<?php _e('Save Changes'); ?>" />
-            </p>
-        </form>
-    </div>
-
-<?php } ?>

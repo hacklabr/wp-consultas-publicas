@@ -2,6 +2,7 @@
 
 include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
+include dirname(__FILE__).'/includes/utils.class.php';
 
 include dirname(__FILE__).'/includes/exportador-comentarios.php';
 include dirname(__FILE__).'/includes/exportador-metas-sugeridas.php';
@@ -13,6 +14,8 @@ function consulta_setup() {
     // POST THUMBNAILS
     add_theme_support('post-thumbnails');
     set_post_thumbnail_size( 230, 176, true );
+    add_image_size('home-highlight', 230, 176);
+    add_image_size('home-secondary-highlight', 270, 132);
     
 //    REGISTRAR AQUI TODOS OS TAMANHOS UTILIZADOS NO LAYOUT
 //    add_image_size('nome',X,Y);

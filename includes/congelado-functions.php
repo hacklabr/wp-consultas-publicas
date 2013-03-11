@@ -12,7 +12,8 @@ $autoinclude_folders = array(
     'taxonomies/',
     'theme-options/',
     'widgets/',
-    'shortcodes/'
+    'shortcodes/',
+    'template-widgets/'
 );
 foreach ($autoinclude_folders as $folder) {
     if (file_exists($autoinclude_base_dir . $folder)) {
@@ -24,6 +25,8 @@ foreach ($autoinclude_folders as $folder) {
         }
     }
 }
+
+WidgetUniquePost::init();
 
 /**
  * Runtime Cache

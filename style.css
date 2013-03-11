@@ -207,7 +207,9 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 /*destaque*/
 .destaque { font-size: 12px; }
 .destaque h1 { font-size: 18px; line-height: 22px; }
-
+.destaque .hl-lightbox { height: 16px; margin-bottom: 22px; padding: 10px 20px; line-height: 16px; font-family: Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif; color: #333; background: whiteSmoke; cursor: pointer; text-shadow: white 0 1px 0; border: 1px solid #DFDFDF; border-radius: 3px; }
+.destaque .hl-lightbox:hover { color: #fff; background: gray; text-shadow: #333 0 -1px 0; }
+.empty-feature { margin-bottom: 22px; padding: 20px; color: #333; background: whiteSmoke; font-size: 12px; text-shadow: white 0 1px 0; border: 1px dashed #DFDFDF; border-radius: 3px; }
 
 /*paged post/comments navigation*/
 .page-link { clear: both; margin: 0 0 22px 0; font-weight: bold; color: #999; }
