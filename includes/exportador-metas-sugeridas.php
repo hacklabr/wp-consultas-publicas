@@ -16,7 +16,7 @@ function exportador_metas_sugeridas_page_callback_function() {
   <div class="wrap span-20">
     <h2><?php echo __('Exportar Comentários', 'consulta'); ?></h2>
 
-    <form method="post" action="<?php echo get_bloginfo('stylesheet_directory'); ?>/includes/exportador-metas-sugeridas-xls.php" class="clear prepend-top">
+    <form method="post" action="<?php echo get_template_directory_uri(); ?>/includes/exportador-metas-sugeridas-xls.php" class="clear prepend-top">
       
       <div class="span-20 ">
       
