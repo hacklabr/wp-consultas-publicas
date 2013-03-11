@@ -24,9 +24,9 @@ get_header();
                 array('posts_per_page' => -1, 'post_type' => 'object', 'meta_key' => '_user_created', 'meta_value' => true, 'object_type' => $type->slug)
             );
             
-            $termDiscription = term_description( $type->term_id, 'object_type' );
+            $termDescription = term_description( $type->term_id, 'object_type' );
     
-            if($termDiscription != '') : ?>
+            if ($termDescription != '') : ?>
                 <header>
                     <h1><a href="<?php echo get_term_link($type->slug, 'object_type'); ?>"><?php echo $type->name; ?></a></h1>
                 </header>
