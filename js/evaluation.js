@@ -1,5 +1,5 @@
 jQuery(document).ready(function(){
-    // vota do usuario em uma das opcoes da avaliacao de um objeto
+    // voto do usuario em uma das opcoes da avaliacao de um objeto
     jQuery('#object_evaluation input').live('click', function() {
         var radioButton = jQuery(this);
         jQuery('body').css('cursor', 'progress');
