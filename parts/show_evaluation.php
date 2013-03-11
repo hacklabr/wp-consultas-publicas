@@ -1,6 +1,6 @@
 <?php 
 
-$evaluationLabels = get_theme_option('evaluation_labels')
+$evaluationLabel = get_theme_option('evaluate_button');
 
 ?>
 
@@ -10,6 +10,6 @@ $evaluationLabels = get_theme_option('evaluation_labels')
     	<span class="count_object_votes">
     		<?php echo count_votes($post->ID); ?>
     	</span>
-    	<?php echo $evaluationLabels['button']; ?>
+    	<?php echo $evaluationLabel; ?>
     </div>
 <?php endif; ?>

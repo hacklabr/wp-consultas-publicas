@@ -29,8 +29,8 @@ function get_theme_default_options() {
         'use_evaluation' => false,
         'evaluation_show_on_list' => false,
         'evaluation_public_results' => false,
+        'evaluate_button' => 'Votar!',
         'evaluation_labels' => array(
-            'button' => 'Votar!',
             'label_1' => __('Concordo', 'consulta'),
             'label_2' => __('Não concordo', 'consulta'),
             'label_3' => '',
@@ -356,7 +356,7 @@ function theme_options_page_callback_function() {
                         <table class="wp-list-table widefat fixed">
                             <tr>
                                 <td><label for="evaluate_button"><?php _e('Texto do botão para avaliar exibido na listagem de objetos', 'consulta'); ?></label></td>
-                                <td><input type="text" id="evaluate_button" class="text" name="theme_options[evaluation_labels][button]" value="<?php echo htmlspecialchars($options['evaluation_labels']['button']); ?>"/></td>
+                                <td><input type="text" id="evaluate_button" class="text" name="theme_options[evaluate_button]" value="<?php echo htmlspecialchars($options['evaluate_button']); ?>"/></td>
                             </tr>
                             <tr>
                                 <td><label for="label_1"><?php _e('Nome do primeiro valor (1)', 'consulta'); ?></label></td>
