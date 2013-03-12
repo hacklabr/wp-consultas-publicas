@@ -1,7 +1,14 @@
 <?php 
 
 $post_type_object = get_post_type_object('object');
-$types = get_terms('object_type', 'orderby=id&order=ASC');
+$include = array();
+
+if ($objectTypeSlug = $wp_query->get('object_type')) {
+    $objectType = get_term_by('slug', $objectTypeSlug, 'object_type');
+    $include[] = $objectType->term_id;
+}
+
+$types = get_terms('object_type', array('orderby' => 'id', 'order' => 'ASC', 'include' => $include));
 $suggestedLabels = get_theme_option('suggested_labels');
 
 get_header();
