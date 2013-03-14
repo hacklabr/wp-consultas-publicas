@@ -46,13 +46,10 @@
                 <div class="span-17 clearfix">
                     <div id="login">
                         <?php if (is_user_logged_in()): ?>
-                            <?php global $current_user; ?>
                             Olá, 
                             
                             <div id="logged-user-name">
-                                <a href="<?php echo get_edit_profile_url($current_user->ID); ?>">
-                                    <?php echo substr($current_user->display_name, 0, 38); ?>
-                                </a>
+                                <?php do_action('consulta_show_user_link'); ?>
                             </div>
                             |
                             <a href="<?php echo wp_logout_url(get_bloginfo('url')) ; ?>">

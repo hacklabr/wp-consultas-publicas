@@ -623,3 +623,19 @@ function consulta_pre_get_posts($query) {
     }
 }
 add_action('pre_get_posts', 'consulta_pre_get_posts', 1);
+
+add_action('consulta_show_user_link', 'consulta_show_user_link');
+/**
+ * Exibe no header um link para o perfil do usuário.
+ * 
+ * @return null
+ */
+function consulta_show_user_link() {
+    global $current_user;
+
+    ?>
+    <a href="<?php echo get_edit_profile_url($current_user->ID); ?>">
+        <?php echo substr($current_user->display_name, 0, 38); ?>
+    </a>
+    <?php
+}
