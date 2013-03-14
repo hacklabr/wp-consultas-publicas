@@ -634,8 +634,10 @@ function consulta_show_user_link() {
     global $current_user;
 
     ?>
-    <a href="<?php echo get_edit_profile_url($current_user->ID); ?>">
-        <?php echo substr($current_user->display_name, 0, 38); ?>
-    </a>
+    <div id="logged-user-name">
+        <a href="<?php echo get_edit_profile_url($current_user->ID); ?>">
+            <?php echo substr($current_user->display_name, 0, 38); ?>
+        </a>
+    </div>
     <?php
 }

@@ -47,10 +47,7 @@
                     <div id="login">
                         <?php if (is_user_logged_in()): ?>
                             Olá, 
-                            
-                            <div id="logged-user-name">
-                                <?php do_action('consulta_show_user_link'); ?>
-                            </div>
+                            <?php do_action('consulta_show_user_link'); ?>
                             |
                             <a href="<?php echo wp_logout_url(get_bloginfo('url')) ; ?>">
                                 <?php _e("Sair", "tnb"); ?>
