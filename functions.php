@@ -83,9 +83,6 @@ function consulta_addJS() {
     }
     
     if (is_singular()) wp_enqueue_script( 'comment-reply' );
-    
-    if (is_admin())
-        wp_enqueue_script('cadastro', get_template_directory_uri() . '/js/cadastro.js', array('jquery'));
 }
 add_action('wp_print_scripts', 'consulta_addJS');
 

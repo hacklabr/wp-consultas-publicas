@@ -60,12 +60,11 @@
                     <?php _e("Sair", "tnb"); ?>
                 </a>
             <?php else: ?>
-                <a href="<?php echo site_url('wp-login.php'); ?>">Log in</a> | <a href="<?php echo site_url('cadastro'); ?>">Cadastro</a>
+                <a href="<?php echo site_url('wp-login.php'); ?>">Log in</a>
+                <?php if (get_option('users_can_register')) : ?>
+                    | <a href="<?php echo home_url('wp-login.php?action=register'); ?>">Cadastro</a>
+                <?php endif; ?>
             <?php endif; ?>
-            
-            
-            
-            
         </div>
         
         <?php
