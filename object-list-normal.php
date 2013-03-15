@@ -36,7 +36,7 @@ get_header();
                         <div class="interaction clearfix">
                             <h1>
                                 <?php if (get_post_meta($post->ID, '_user_created', true)) :?>
-                                    <div class="suggested-user-icon"><img src="<?php bloginfo('template_directory') ?>/img/star.png" title="Sugestão do usuário" alt="Sugestão do usuário" /></div>
+                                    <div class="suggested-user-icon"><img src="<?php bloginfo('template_directory') ?>/img/user-suggest.png" title="Sugestão do usuário" alt="Sugestão do usuário" /></div>
                                 <?php endif; ?>
 
                                 <a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a>
