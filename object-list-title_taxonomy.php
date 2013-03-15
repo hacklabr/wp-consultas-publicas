@@ -1,7 +1,14 @@
 <?php 
 
 $post_type_object = get_post_type_object('object');
-$types = get_terms('object_type', 'orderby=id&order=ASC');
+$include = array();
+
+if ($objectTypeSlug = $wp_query->get('object_type')) {
+    $objectType = get_term_by('slug', $objectTypeSlug, 'object_type');
+    $include[] = $objectType->term_id;
+}
+
+$types = get_terms('object_type', array('orderby' => 'id', 'order' => 'ASC', 'include' => $include));
 $suggestedLabels = get_theme_option('suggested_labels');
 
 get_header();
@@ -24,9 +31,9 @@ get_header();
                 array('posts_per_page' => -1, 'post_type' => 'object', 'meta_key' => '_user_created', 'meta_value' => true, 'object_type' => $type->slug)
             );
             
-            $termDiscription = term_description( $type->term_id, 'object_type' );
+            $termDescription = term_description( $type->term_id, 'object_type' );
     
-            if($termDiscription != '') : ?>
+            if ($termDescription != '') : ?>
                 <header>
                     <h1><a href="<?php echo get_term_link($type->slug, 'object_type'); ?>"><?php echo $type->name; ?></a></h1>
                 </header>

@@ -2,6 +2,7 @@
 
 include dirname(__FILE__).'/includes/congelado-functions.php';
 include dirname(__FILE__).'/includes/html.class.php';
+include dirname(__FILE__).'/includes/utils.class.php';
 
 include dirname(__FILE__).'/includes/exportador-comentarios.php';
 include dirname(__FILE__).'/includes/exportador-metas-sugeridas.php';
@@ -13,6 +14,8 @@ function consulta_setup() {
     // POST THUMBNAILS
     add_theme_support('post-thumbnails');
     set_post_thumbnail_size( 230, 176, true );
+    add_image_size('home-highlight', 230, 176);
+    add_image_size('home-secondary-highlight', 270, 132);
     
 //    REGISTRAR AQUI TODOS OS TAMANHOS UTILIZADOS NO LAYOUT
 //    add_image_size('nome',X,Y);
@@ -70,19 +73,16 @@ add_filter( 'show_admin_bar' , 'remove_admin_bar');
 
 // JS
 function consulta_addJS() {
-    wp_enqueue_script('scrollto', get_bloginfo('stylesheet_directory') . '/js/jquery.scrollTo-1.4.2-min.js',array('jquery'));
-    wp_enqueue_script('consulta', get_bloginfo('stylesheet_directory') . '/js/consulta.js',array('jquery', 'scrollto'));
+    wp_enqueue_script('scrollto', get_template_directory_uri() . '/js/jquery.scrollTo-1.4.2-min.js',array('jquery'));
+    wp_enqueue_script('consulta', get_template_directory_uri() . '/js/consulta.js',array('jquery', 'scrollto'));
     wp_localize_script('consulta', 'consulta', array( 'ajaxurl' => admin_url('admin-ajax.php') ));
-    wp_enqueue_script('hl', get_bloginfo('stylesheet_directory') . '/js/hl.js', array('consulta'));
+    wp_enqueue_script('hl', get_template_directory_uri() . '/js/hl.js', array('consulta'));
     
     if (get_post_type() == 'object') {
-        wp_enqueue_script('evaluation', get_bloginfo('stylesheet_directory') . '/js/evaluation.js', array('jquery'));
+        wp_enqueue_script('evaluation', get_template_directory_uri() . '/js/evaluation.js', array('jquery'));
     }
     
     if (is_singular()) wp_enqueue_script( 'comment-reply' );
-    
-    if (is_admin())
-        wp_enqueue_script('cadastro', get_bloginfo('stylesheet_directory') . '/js/cadastro.js', array('jquery'));
 }
 add_action('wp_print_scripts', 'consulta_addJS');
 
@@ -217,22 +217,26 @@ add_action( 'comment_post', 'consulta_post_comment', 1 );
 ////////////////////
 
 function print_msgs($msg, $extra_class='', $id=''){
-    if(!is_array($msg))
+    if (!is_array($msg)) {
         return false;
-
-    foreach($msg as $type=>$msgs){
-        if (!$msgs) continue;
-        echo "<div class='$type $extra_class' id='$id'><ul>";
-            if(!is_array($msgs)){
-                echo "<li>$msgs</li>";
-            }else{
-                foreach ($msgs as $m){
-                    echo "<li>$m</li>";
-                }
-             }
-        echo "</ul></div>";
     }
 
+    foreach($msg as $type=>$msgs) {
+        if (!$msgs) {
+            continue;
+        }
+        
+        echo "<div class='$type $extra_class' id='$id'><ul>";
+
+        if (!is_array($msgs)) {
+            echo "<li>$msgs</li>";
+        } else {
+            foreach ($msgs as $m) {
+                echo "<li>$m</li>";
+            }
+        }
+        echo "</ul></div>";
+    }
 }
 
 
@@ -418,7 +422,8 @@ add_action('wp_print_styles', function() {
     #new_object .clearfix > label { color: <?php echo $titleColor; ?>; }
     #new_object_submit { background: <?php echo $titleColor; ?>; }
     #new_object_submit:hover { background: <?php echo $linkColor; ?>; }
-    .interaction span.user_created { background-color: <?php echo $linkColor; ?>; }
+    .suggested-user-icon{ background: <?php echo $linkColor; ?>; }
+
     </style>
     <?php
     
@@ -618,3 +623,21 @@ function consulta_pre_get_posts($query) {
     }
 }
 add_action('pre_get_posts', 'consulta_pre_get_posts', 1);
+
+add_action('consulta_show_user_link', 'consulta_show_user_link');
+/**
+ * Exibe no header um link para o perfil do usuário.
+ * 
+ * @return null
+ */
+function consulta_show_user_link() {
+    global $current_user;
+
+    ?>
+    <div id="logged-user-name">
+        <a href="<?php echo get_edit_profile_url($current_user->ID); ?>">
+            <?php echo substr($current_user->display_name, 0, 38); ?>
+        </a>
+    </div>
+    <?php
+}
