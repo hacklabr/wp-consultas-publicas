@@ -621,6 +621,11 @@ function consulta_pre_get_posts($query) {
         $query->set('order', get_theme_option('list_order'));
         $query->set('orderby', get_theme_option('list_order_by'));
     }
+    
+    // exibe na pagina do autor os objetos que ele sugeriu
+    if ($query->is_author && get_theme_option('allow_suggested')) {
+        $query->set('post_type', 'object');
+    }
 }
 add_action('pre_get_posts', 'consulta_pre_get_posts', 1);
 

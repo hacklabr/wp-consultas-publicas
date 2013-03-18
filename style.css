@@ -169,6 +169,10 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .post footer { border-top: 1px dotted #ccc; }
 .taxonomies { padding: 11px 0; }
 
+/* =Post type object
+-------------------------------------------------------------- */
+.object header { margin-bottom: 22px; }
+.object header h1 { margin-bottom: 0; }
 
 /*interaction*/
 .post .interaction { padding: 13px 0; border-top: 1px dotted #ccc; border-bottom: 1px dotted #ccc; }

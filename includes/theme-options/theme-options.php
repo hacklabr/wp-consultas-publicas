@@ -18,6 +18,7 @@ function get_theme_default_options() {
             'description' => 'Utilize essa página para criar um novo objeto.',
             'success' => 'Objeto criado com sucesso!',
             'list' => 'Objetos sugeridos pelos usuários',
+            'list_user_page' => 'Objetos sugeridos pelo usuário',
         ),
         'enable_taxonomy' => false,
         
@@ -227,6 +228,10 @@ function theme_options_page_callback_function() {
                             <tr>
                                 <td><label for="suggested_object_list">Título da listagem de objetos sugeridos</label></td>
                                 <td><input type="text" id="suggested_object_list" class="text" name="theme_options[suggested_labels][list]" value="<?php echo htmlspecialchars($options['suggested_labels']['list']); ?>"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="suggested_object_user_list">Título da listagem de objetos sugeridos na página de um usuário</label></td>
+                                <td><input type="text" id="suggested_object_user_list" class="text" name="theme_options[suggested_labels][list_user_page]" value="<?php echo htmlspecialchars($options['suggested_labels']['list_user_page']); ?>"/></td>
                             </tr>
                         </table>
                     </div>
