@@ -7,11 +7,11 @@
             <small><?php echo filesize(WP_CONTENT_DIR . '/uploads/access_log/total/' . $post->ID); ?> acessos</small>
             <?php endif; ?>
         </h1>
-        
-        <?php do_action('consulta_after_object_title'); ?>
 
         <div class="clear"></div>
         
+        <?php do_action('consulta_after_object_title'); ?>
+
         <div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
         <div class="commenters-number" title="<?php _e('número de pessoas que comentaram', 'consulta'); ?>"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
         <?php html::part('show_evaluation'); ?>

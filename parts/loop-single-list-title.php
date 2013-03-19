@@ -6,11 +6,11 @@
             <?php endif; ?>
             <a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a>
         </h1>
+
+        <div class="clear"></div>
         
         <?php do_action('consulta_after_object_title'); ?>
         
-        <div class="clear"></div>
-
         <div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
         <div class="commenters-number" title="<?php _e('número de pessoas que comentaram', 'consulta'); ?>"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
         <?php html::part('show_evaluation'); ?>
