@@ -107,7 +107,10 @@ class ObjectPostType {
             return;
         }
         
-        update_post_meta($postId, '_user_created', false);
+        // se o post foi criado por um usuário não faz nada, caso contrário define o valor do meta como false
+        if (!get_post_meta($postId, '_user_created', true)) {
+            update_post_meta($postId, '_user_created', false);
+        }
     }
 }
 
