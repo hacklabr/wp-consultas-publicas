@@ -14,7 +14,7 @@ bubble gray - #bbbbbb
 green - #063
 blue - #00a0d0
 light blue - #54c5e7
-bg blue - #d9f1f8
+bg grey - #e6e6e6
 
 
 */
@@ -106,7 +106,7 @@ strong { font-weight: bold; }
 cite, em, i { font-style: italic; }
 big { font-size: 131.25%; }
 ins { background: #ffc;	text-decoration: none; }
-blockquote { margin-bottom: 22px; padding: 10px; box-shadow: 2px 2px 7px rgba(0, 0, 0, .4); -moz-box-shadow: 2px 2px 7px rgba(0, 0, 0, .4); -webkit-box-shadow: 2px 2px 7px rgba(0, 0, 0, .4); font-family: Georgia,Cambria,"Times New Roman",Times,serif; font-style: italic; background: #d9f1f8; }
+blockquote { margin-bottom: 22px; padding: 10px; box-shadow: 2px 2px 7px rgba(0, 0, 0, .4); -moz-box-shadow: 2px 2px 7px rgba(0, 0, 0, .4); -webkit-box-shadow: 2px 2px 7px rgba(0, 0, 0, .4); font-family: Georgia,Cambria,"Times New Roman",Times,serif; font-style: italic; background: #e6e6e6; }
 blockquote cite, blockquote em, blockquote i { font-style: normal; }
 pre { background: #e6e6e6; line-height: 22px; margin-bottom: 22px; padding: 1.5em; }
 abbr, acronym {	border-bottom: 1px dotted #666;	cursor: help; }
@@ -222,7 +222,7 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .tabs li.current { border-bottom: 1px solid #fff; }
 
 /*meta-sugerida-info*/
-.meta-sugerida-info { background: #d9f1f8; padding: 11px; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; margin-bottom: 22px; }
+.meta-sugerida-info { background: #e6e6e6; padding: 11px; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; margin-bottom: 22px; }
 
 
 /* =Images
@@ -262,7 +262,7 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .commentlist { margin: 0 0 21px; border-bottom: 1px dotted #ccc; list-style: none; }
 .commentlist li.comment , .commentlist li.trackback, .commentlist li.pingback { margin-bottom: 10px; padding-bottom: 11px; border-bottom: 1px dotted #ccc; }
 .commentlist li.comment .content, .commentlist li.trackback .content, .commentlist li.pingback .content { padding: 11px; border-left: 4px solid #e6e6e6; }
-.commentlist li.delegado .content { background: #d9f1f8; }
+.commentlist li.delegado .content { background: #e6e6e6; }
 .commentlist li.conselheiro .content { background: #e6e6e6; }
 .comment-meta { font-family: Verdana, Arial, sans-serif; font-size: 11px; text-transform: uppercase; color: #999; margin-bottom: 0; }
 .commentlist .children { padding: 0 0 0 60px; margin: 0 0 10px; list-style: none; border-bottom: 1px dotted #ccc; }
@@ -310,7 +310,7 @@ ul.commentlist > li.delegado:last-child, ul.children > li.conselheiro:last-child
 /* =Tema
 -------------------------------------------------------------- */
 .tema { border-bottom: 1px solid #ccc; margin-bottom: 66px; padding-bottom: 21px; }
-.tema > header h1 { color: #666; background: #d9f1f8; padding: 11px; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
+.tema > header h1 { color: #666; background: #e6e6e6; padding: 11px; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
 .tema ul li { list-style: none; border-bottom: 1px dotted #ccc; padding: 11px 11px 10px; }
 
 /*interaction*/
@@ -349,8 +349,8 @@ ul.commentlist > li.delegado:last-child, ul.children > li.conselheiro:last-child
 
 #wp-calendar { width: 100%; font-family: Helvetica, Arial, sans-serif; }
 #wp-calendar caption { color: #fff;	font-size: 14px; font-weight: bold; }
-#wp-calendar thead { border: 1px solid #d9f1f8; }
-#wp-calendar thead th { background: #d9f1f8; }
+#wp-calendar thead { border: 1px solid #e6e6e6; }
+#wp-calendar thead th { background: #e6e6e6; }
 #wp-calendar tbody td {	background: #fff; border: 1px solid #ccc; text-align: center; }
 #wp-calendar tbody td a { background: #e6e6e6; display: block; font-weight: bold; }
 #wp-calendar tbody .pad { background: none; }
