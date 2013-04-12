@@ -15,7 +15,7 @@
 				<!-- #posts-nav -->
 			<?php endif; ?>					
 		<?php else : ?>
-		   <p>Nenhum post encontrada</p>              
+		   <p>Nenhum post encontrado</p>              
 		<?php endif; ?>
 	</section>
 	<!-- #main-section -->

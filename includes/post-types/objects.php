@@ -4,6 +4,7 @@ class ObjectPostType {
     static function init(){
         add_action('init', array(__CLASS__, 'register'), 0);
         add_action('init', array(__CLASS__, 'register_taxonomies'), 0);
+        add_action('save_post', array(__CLASS__, 'savePost'));
     }
     
     static function get_default_labels() {
@@ -16,8 +17,8 @@ class ObjectPostType {
                     'new_item' => __('Novo objeto', 'consulta'),
                     'view_item' => __('Ver objeto', 'consulta'),
                     'search_items' => __('Buscar objetos', 'consulta'),
-                    'not_found' =>  __('Nenhuma Objeto Encontrado', 'consulta'),
-                    'not_found_in_trash' => __('Nenhum Objeto na Lixeira', 'consulta'),
+                    'not_found' =>  __('Nenhum objeto encontrado', 'consulta'),
+                    'not_found_in_trash' => __('Nenhum objeto na lixeira', 'consulta'),
                  );
     }
 
@@ -89,6 +90,26 @@ class ObjectPostType {
                 )
             );
             
+        }
+    }
+    
+    /**
+     * Chamado sempre que um post é salvo
+     * 
+     * @return null
+     */
+    static function savePost($postId) {
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+        
+        if ((isset($_POST['post_type']) && $_POST['post_type'] != 'object') || !is_admin()) {
+            return;
+        }
+        
+        // se o post foi criado por um usuário não faz nada, caso contrário define o valor do meta como false
+        if (!get_post_meta($postId, '_user_created', true)) {
+            update_post_meta($postId, '_user_created', false);
         }
     }
 }

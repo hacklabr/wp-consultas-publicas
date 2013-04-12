@@ -2,7 +2,7 @@
 Theme Name: Consultas Publicas
 Description: Tema para criar Consultas Publicas
 Author: Hacklab
-Version: 0.1
+Version: 0.2
 */
 
 /* =Colors (cores)
@@ -169,6 +169,10 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .post footer { border-top: 1px dotted #ccc; }
 .taxonomies { padding: 11px 0; }
 
+/* =Post type object
+-------------------------------------------------------------- */
+.object header { margin-bottom: 22px; }
+.object header h1 { margin-bottom: 0; }
 
 /*interaction*/
 .post .interaction { padding: 13px 0; border-top: 1px dotted #ccc; border-bottom: 1px dotted #ccc; }
@@ -179,8 +183,11 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 .post .interaction span.commenters-number-icon { background: url(img/users.png) no-repeat left center; border:none; display:inline-block; float:left; height:22px; padding:0; width:32px; }
 
 .interaction .show_evaluation { display: inline-block; border-left: 1px dotted #ccc; font-size: 13px; padding: 0 9px; font-weight: bold; }
+.interaction .show_evaluation:hover { cursor: pointer; }
 .interaction .show_evaluation .count_object_votes_icon { float: left; width: 22px; height: 22px; background: url(img/poll.png) transparent center no-repeat; }
-.interaction span.user_created { margin: 1px 0 0 9px; float: left; width: 16px; height: 16px; }
+.interaction .show_evaluation .count_object_votes { padding: 0 2px; }
+
+.interaction .suggested-user-icon{ width: 16px !important; height: 16px !important; float: left; display: inline-block; margin-right: 5px; margin-top: 2px; }
 
 /* evaluation */
 .post .evaluation { padding: 13px 0; }
@@ -204,7 +211,9 @@ body.archive .post header h1, body.blog .post header h1 { font-size: 24px; }
 /*destaque*/
 .destaque { font-size: 12px; }
 .destaque h1 { font-size: 18px; line-height: 22px; }
-
+.destaque .hl-lightbox { height: 16px; margin-bottom: 22px; padding: 10px 20px; line-height: 16px; font-family: Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif; color: #333; background: whiteSmoke; cursor: pointer; text-shadow: white 0 1px 0; border: 1px solid #DFDFDF; border-radius: 3px; }
+.destaque .hl-lightbox:hover { color: #fff; background: gray; text-shadow: #333 0 -1px 0; }
+.empty-feature { margin-bottom: 22px; padding: 20px; color: #333; background: whiteSmoke; font-size: 12px; text-shadow: white 0 1px 0; border: 1px dashed #DFDFDF; border-radius: 3px; }
 
 /*paged post/comments navigation*/
 .page-link { clear: both; margin: 0 0 22px 0; font-weight: bold; color: #999; }
