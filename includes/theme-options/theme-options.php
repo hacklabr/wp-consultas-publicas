@@ -18,7 +18,10 @@ function get_theme_default_options() {
             'description' => 'Utilize essa página para criar um novo objeto.',
             'success' => 'Objeto criado com sucesso!',
             'list' => 'Objetos sugeridos pelos usuários',
+            'core_list' => 'Objetos sugeridos por nossa equipe',
             'list_user_page' => 'Objetos sugeridos pelo usuário',
+            'form_title' => 'Título',
+            'form_description' => 'Descrição',
         ),
         'enable_taxonomy' => false,
         
@@ -155,6 +158,7 @@ function theme_options_page_callback_function() {
                     <?php _e('Quais são os objetos da sua consulta? Itens de um projeto de lei? Metas de um Plano? Utilize esta página para dar o nome adequado aquilo que você está colocando sob consulta. Preencha as opções abaixo substituindo o termo "objeto" pelo nome do objeto da sua consulta.', 'consulta'); ?>
                     </p>
                     <table class="wp-list-table widefat fixed">
+                        
                         <tr>
                             <td><label for="name">Nome do objeto da consulta (plural)</label></td>
                             <td><input type="text" id="name" class="text" name="theme_options[object_labels][name]" value="<?php echo htmlspecialchars($options['object_labels']['name']); ?>"/></td>
@@ -230,9 +234,22 @@ function theme_options_page_callback_function() {
                                 <td><input type="text" id="suggested_object_list" class="text" name="theme_options[suggested_labels][list]" value="<?php echo htmlspecialchars($options['suggested_labels']['list']); ?>"/></td>
                             </tr>
                             <tr>
+                                <td><label for="suggested_core_list">Título da listagem original de objetos</label></td>
+                                <td><input type="text" id="suggested_core_list" class="text" name="theme_options[suggested_labels][core_list]" value="<?php echo htmlspecialchars($options['suggested_labels']['core_list']); ?>"/></td>
+                            </tr>
+                            <tr>
                                 <td><label for="suggested_object_user_list">Título da listagem de objetos sugeridos na página de um usuário</label></td>
                                 <td><input type="text" id="suggested_object_user_list" class="text" name="theme_options[suggested_labels][list_user_page]" value="<?php echo htmlspecialchars($options['suggested_labels']['list_user_page']); ?>"/></td>
                             </tr>
+                            <tr>
+                                <td><label for="form_title">Rótulo do campo "Título" no formulário de inclusão</label></td>
+                                <td><input type="text" id="form_title" class="text" name="theme_options[suggested_labels][form_title]" value="<?php echo htmlspecialchars($options['suggested_labels']['form_title']); ?>"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="form_description">Rótulo do campo "Descição" no formulário de inclusão</label></td>
+                                <td><input type="text" id="form_description" class="text" name="theme_options[suggested_labels][form_description]" value="<?php echo htmlspecialchars($options['suggested_labels']['form_description']); ?>"/></td>
+                            </tr>
+                            
                         </table>
                     </div>
                 </div>
