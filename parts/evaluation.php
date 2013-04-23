@@ -72,7 +72,7 @@
         <?php endif; ?>
     
         <?php if (is_user_logged_in()): ?>
-            <div id="user_evaluation">            
+            <div class="user_evaluation">            
                 <h5><?php _e('Minha avaliação', 'consulta'); ?></h5>
                 
                 <form id="object_evaluation">

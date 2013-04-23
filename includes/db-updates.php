@@ -10,3 +10,10 @@ if (congelado_db_update('db-update-1')) {
         }
     }
 }
+
+// adiciona capability edit_posts aos usuários registrados para permitir que eles associem
+// itens de uma taxonomia quando estão criando um objeto sugerido
+if (congelado_db_update('db-update-2')) {
+    $role = get_role('subscriber');
+    $role->add_cap('edit_posts');
+}
