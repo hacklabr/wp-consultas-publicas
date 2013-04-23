@@ -318,8 +318,8 @@ ul.commentlist > li.delegado:last-child, ul.children > li.conselheiro:last-child
 
 /* =Tema
 -------------------------------------------------------------- */
-.tema { border-bottom: 1px solid #ccc; margin-bottom: 66px; padding-bottom: 21px; }
-.tema > header h1 { color: #666; background: #e6e6e6; padding: 11px; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; margin-top: 15px; }
+.tema { border-bottom: 1px solid #ccc; margin-top: 15px; margin-bottom: 66px; padding-bottom: 21px; }
+.tema > header h1 { color: #666; background: #e6e6e6; padding: 11px; border-radius: 6px; -moz-border-radius: 6px; -webkit-border-radius: 6px; }
 .tema ul li { list-style: none; border-bottom: 1px dotted #ccc; padding: 11px 11px 10px; }
 
 /*interaction*/
