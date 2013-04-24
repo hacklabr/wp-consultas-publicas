@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){
+jQuery(document).ready(function() {
     // voto do usuario em uma das opcoes da avaliacao de um objeto
     jQuery('#object_evaluation input').live('click', function() {
         var radioButton = jQuery(this);
