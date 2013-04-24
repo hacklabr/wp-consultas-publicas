@@ -12,6 +12,8 @@ jQuery(document).ready(function(){
                 jQuery('body').css('cursor', 'auto');
                 radioButton.closest('li').find('.count_object_votes').html(data.count);
                 radioButton.closest('.evaluation_container').html(data.html);
+                jQuery('.object_evaluation_feedback').show();
+                jQuery('.object_evaluation_feedback').delay(1500).fadeOut('slow');
             }
         });
     });

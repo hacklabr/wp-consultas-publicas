@@ -83,6 +83,7 @@
                         <label for="<?php echo $key; ?>"><?php echo $value; ?></label>
                         <br />
                     <?php endforeach; ?>
+                    <div class="object_evaluation_feedback" style="display: none;">ok</div>
                 </form>
             </div>
         <?php else: ?>
