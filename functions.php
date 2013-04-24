@@ -490,10 +490,10 @@ add_action('wp_ajax_object_evaluation', function() {
     
     // delete old vote if user already voted
     if ($userOldVote = get_user_vote($postId)) {
-        delete_post_meta($postId, $userOldVote);
+        delete_post_meta($postId, $userOldVote, get_current_user_id());
     }
     
-    update_post_meta($postId, '_' . $userVote, get_current_user_id());
+    add_post_meta($postId, '_' . $userVote, get_current_user_id());
     
     global $post;
     
