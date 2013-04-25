@@ -76,14 +76,16 @@
                 <h5><?php _e('Minha avaliação', 'consulta'); ?></h5>
                 
                 <form id="object_evaluation">
-                    <input type="hidden" id="post_id" name="post_id" value="<?php the_ID(); ?>" />    	
+                    <input type="hidden" id="post_id" name="post_id" value="<?php the_ID(); ?>" />      
                     <?php foreach ($evaluationOptions as $key => $value) : ?>
                         <?php if (empty($value)) break; ?>
-                        <input type="radio" id="<?php echo $key; ?>" name="object_evaluation" <?php checked($userVote === $key); ?> />
-                        <label for="<?php echo $key; ?>"><?php echo $value; ?></label>
-                        <br />
+                        
+                        <div class="list_object">
+                            <input type="radio" id="<?php echo $key; ?>" name="object_evaluation" <?php checked($userVote === $key); ?> />
+                            <label for="<?php echo $key; ?>"><?php echo $value; ?></label>
+                            <div class="object_evaluation_feedback" style="display: inline;"><img style="float: left; margin-left: 5px;" src="<?php bloginfo('stylesheet_directory'); ?>/img/accept.png" alt="" /></div>
+                        </div>
                     <?php endforeach; ?>
-                    <div class="object_evaluation_feedback" style="display: none;"><img src="<?php bloginfo('stylesheet_directory'); ?>/img/accept.png" alt="" /></div>
                 </form>
             </div>
         <?php else: ?>
