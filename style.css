@@ -436,8 +436,9 @@ ul.acoes li.selected { background: #e6e6e6; }
 -------------------------------------------------------------- */
 #new_object { margin-left: 20px; }
 #new_object input { margin-bottom: 11px; color: #666; }
+#new_object input[type="submit"] { color: #FFF; }
 #new_object .clearfix > label { display: block; font-weight: bold; font-size: 14px; text-transform: uppercase; }
-#new_object #title, #new_object #object_type, #new_object textarea { width: 80%; color: #222 !important; }
+#new_object #title, #new_object #object_type, #new_object textarea { width: 80%; }
 #new_object textarea { height: 200px; margin-bottom: 22px; color: #000; }
 #new_object_submit { width: 80px; padding: 4px 0; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #fff; background: #0033CC; border: none; }
 
