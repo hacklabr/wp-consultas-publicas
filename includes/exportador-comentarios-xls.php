@@ -1,26 +1,23 @@
 <?php
 
-
 include('../../../../wp-load.php');
 
-if (!current_user_can('manage_options'))
+if (!current_user_can('manage_options')) {
     die('Você não deveria estar aqui');
-    
+}
     
 $inicio = $_POST['data_inicial'];
 $fim = $_POST['data_final'];
 
-
 global $wpdb;
 
 if ($inicio && $fim) {
-    $q = $wpdb->prepare("SELECT * FROM $wpdb->comments WHERE comment_date >= %s AND comment_date <= %s  ORDER BY comment_date", $inicio, $fim);
+    $q = $wpdb->prepare("SELECT * FROM $wpdb->comments WHERE comment_date >= %s AND comment_date <= %s ORDER BY comment_date", $inicio, $fim);
 } else {
     $q = $wpdb->prepare("SELECT * FROM $wpdb->comments ORDER BY comment_date");
 }
 
 $comments = $wpdb->get_results($q);
-
 
 header('Pragma: public');
 header('Cache-Control: no-store, no-cache, must-revalidate'); // HTTP/1.1
@@ -67,8 +64,6 @@ header('Content-Disposition: attachment; filename=comentarios-consulta.xls');
         <td>Instituição</td>
     </tr>'); ?>
 
-
-
 <?php foreach ($comments as $c) : ?>
 
     <?php ob_start(); ?>
@@ -109,11 +104,6 @@ header('Content-Disposition: attachment; filename=comentarios-consulta.xls');
     echo utf8_decode($o);
     
     ?>
-
-
-
 <?php endforeach; ?>
 
 </table>
-
-
