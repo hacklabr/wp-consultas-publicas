@@ -34,8 +34,6 @@ jQuery(document).ready(function() {
         jQuery('#use_evaluation_labels_container').hide();
     }
     
-    jQuery('#data_encerramento').datepicker({dateFormat: 'yy-mm-dd'});   
-    
     //abas
     jQuery('#abas-secoes li a').click(function() {
         jQuery('#abas-secoes li').removeClass('active');

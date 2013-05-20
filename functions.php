@@ -71,6 +71,16 @@ function remove_admin_bar(){
 }
 add_filter( 'show_admin_bar' , 'remove_admin_bar');
 
+add_action('admin_enqueue_scripts', function() {
+    wp_enqueue_script('jquery-ui-datepicker');
+    wp_enqueue_style('jquery-ui-custom', get_template_directory_uri() . '/css/ui-lightness/jquery-ui-1.9.1.custom.min.css');
+    wp_enqueue_script('consulta-datepicker', get_template_directory_uri() . '/js/consulta-datepicker.js', array('consulta'));
+    
+    if (get_current_screen()->id == 'comments_page_exportador_comentarios') {
+        wp_enqueue_script('consulta-exportador-comentarios', get_template_directory_uri() . '/js/consulta-exportador-comentarios.js', array('jquery'));
+    }
+});
+
 // JS
 function consulta_addJS() {
     wp_enqueue_script('scrollto', get_template_directory_uri() . '/js/jquery.scrollTo-1.4.2-min.js',array('jquery'));

@@ -79,7 +79,6 @@ function theme_options_menu() {
 }
 
 function theme_options_js() {
-    wp_enqueue_script('jquery-ui-datepicker');
     wp_enqueue_script('theme_options_js', get_template_directory_uri() . '/js/theme-options.js', array('jquery'));
 }
 
@@ -440,7 +439,7 @@ function theme_options_page_callback_function() {
                         </tr>
                         <tr>
                             <td><label for="data_encerramento"><?php _e('Data de encerramento da consulta', 'consulta'); ?></label></td>
-                            <td><input type="text" id="data_encerramento" class="text" name="theme_options[data_encerramento]" value="<?php echo htmlspecialchars($options['data_encerramento']); ?>"/></td>
+                            <td><input type="text" id="data_encerramento" class="text select_date" name="theme_options[data_encerramento]" value="<?php echo htmlspecialchars($options['data_encerramento']); ?>"/></td>
                         </tr>
                     </table>
                 </div>
