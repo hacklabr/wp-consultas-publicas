@@ -76,7 +76,7 @@ add_action('admin_enqueue_scripts', function() {
     wp_enqueue_style('jquery-ui-custom', get_template_directory_uri() . '/css/ui-lightness/jquery-ui-1.9.1.custom.min.css');
     wp_enqueue_script('consulta-datepicker', get_template_directory_uri() . '/js/consulta-datepicker.js', array('consulta'));
     
-    if (get_current_screen()->id == 'comments_page_exportador_comentarios') {
+    if (get_current_screen()->id == 'opcoes-da-consulta_page_export_comments') {
         wp_enqueue_script('consulta-exportador-comentarios', get_template_directory_uri() . '/js/consulta-exportador-comentarios.js', array('jquery'));
     }
 });

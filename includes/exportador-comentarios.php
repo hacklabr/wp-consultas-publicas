@@ -3,7 +3,7 @@
 add_action('admin_menu', 'exportador_comentarios_menu');
 
 function exportador_comentarios_menu() {
-    add_comments_page('Exportar', 'Exportar', 'manage_options', 'exportador_comentarios', 'exportador_comentarios_page_callback_function');
+    add_submenu_page('theme_options', 'Exportar comentários', 'Exportar comentários', 'manage_options', 'export_comments', 'exportador_comentarios_page_callback_function');
 }
 
 function exportador_comentarios_page_callback_function() {
