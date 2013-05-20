@@ -14,7 +14,7 @@ global $wpdb;
 if ($inicio && $fim) {
     $q = $wpdb->prepare("SELECT * FROM $wpdb->comments WHERE comment_date >= %s AND comment_date <= %s ORDER BY comment_date", $inicio, $fim);
 } else {
-    $q = $wpdb->prepare("SELECT * FROM $wpdb->comments ORDER BY comment_date");
+    $q = "SELECT * FROM $wpdb->comments ORDER BY comment_date";
 }
 
 $comments = $wpdb->get_results($q);
@@ -54,22 +54,12 @@ header('Content-Disposition: attachment; filename=comentarios-consulta.xls');
         <td>ID</td>
         <td>Nome</td>
         <td>E-mail</td>
-        <td>UF</td>
-        <td>Ocupação</td>
-        <td>Ocupação (outra)</td>
-        <td>Atuação</td>
-        <td>Atuação (outra)</td>
-        <td>Categoria</td>
-        <td>Sub Categoria</td>
-        <td>Instituição</td>
     </tr>'); ?>
 
 <?php foreach ($comments as $c) : ?>
-
     <?php ob_start(); ?>
     
     <tr>
-    
         <td><?php echo $c->comment_ID; ?></td>
         <td><?php echo date('d/m/Y', strtotime($c->comment_date)); ?></td>
         <td><?php echo $c->comment_content; ?></td>
@@ -82,20 +72,9 @@ header('Content-Disposition: attachment; filename=comentarios-consulta.xls');
         <td><?php echo $post->post_type; ?></td>
         <td><?php echo $post->post_title; ?></td>
         
-        <?php $author = get_userdata($c->user_id); ?>
-        
         <td><?php echo $c->user_id; ?></td>
-        <td><?php echo $author->display_name; ?></td>
-        <td><?php echo $author->user_email; ?></td>
-        <td><?php echo $author->estado; ?></td>
-        <td><?php echo $author->ocupacao; ?></td>
-        <td><?php echo $author->ocupacao_outra; ?></td>
-        <td><?php echo $author->atuacao; ?></td>
-        <td><?php echo $author->atuacao_outra; ?></td>
-        <td><?php echo $author->categoria; ?></td>
-        <td><?php echo $author->sub_categoria; ?></td>
-        <td><?php echo $author->instituicao; ?></td>
-    
+        <td><?php echo get_the_author_meta('display_name', $c->user_id); ?></td>
+        <td><?php echo get_the_author_meta('user_email', $c->user_id); ?></td>
     </tr>
 
     <?php 
