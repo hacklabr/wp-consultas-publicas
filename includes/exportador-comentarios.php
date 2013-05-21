@@ -10,11 +10,13 @@ function exportador_comentarios_page_callback_function() {
     ?>
     <div class="wrap span-20">
         <h2><?php echo __('Exportar Comentários', 'consulta'); ?></h2>
+
+        <p><?php _e('Utilize está página para exportar uma tabela do Excel com informações de todos os comentários feitos pelos usuários nos objetos. Se desejar, é possível filtrar a lista para exportar apenas os comentários criados num determinado período de tempo.', 'consulta'); ?></p>
     
         <form method="post" action="<?php echo get_template_directory_uri(); ?>/includes/exportador-comentarios-xls.php" class="clear prepend-top">
             <div class="span-20 ">
                 <div class="span-6 last">
-                    <br/><br/>
+                    <br/>
                     <input type="checkbox" name="periodo" id="period">
                     <label for="period">Exportar por período</label>
                     <div id="select_period" style="display: none;">
