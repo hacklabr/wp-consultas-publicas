@@ -6,6 +6,7 @@ include dirname(__FILE__).'/includes/utils.class.php';
 
 include dirname(__FILE__).'/includes/exportador-comentarios.php';
 include dirname(__FILE__).'/includes/exportador-objetos-sugeridos.php';
+include dirname(__FILE__).'/includes/relatorio.php';
 
 add_action( 'after_setup_theme', 'consulta_setup' );
 function consulta_setup() {
