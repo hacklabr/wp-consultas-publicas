@@ -12,12 +12,17 @@ $fim = $_POST['data_final'];
 global $wpdb;
 
 if ($inicio && $fim) {
-    $q = $wpdb->prepare("SELECT * FROM $wpdb->posts WHERE post_type = 'meta-sugerida' AND post_date >= %s AND post_date <= %s  ORDER BY post_date", $inicio, $fim);
+    $q = $wpdb->prepare(
+        "SELECT * FROM $wpdb->posts p, $wpdb->postmeta pm
+        WHERE p.ID = pm.post_id AND pm.meta_key = '_user_created' AND pm.meta_value = 1 AND post_type = 'object' AND post_date >= %s AND post_date <= %s
+        ORDER BY post_date",
+        $inicio, $fim
+    );
 } else {
-    $q = "SELECT * FROM $wpdb->posts WHERE post_type = 'meta-sugerida' ORDER BY post_date";
+    $q = "SELECT * FROM $wpdb->posts p, $wpdb->postmeta pm WHERE p.ID = pm.post_id AND pm.meta_key = '_user_created' AND pm.meta_value = 1 AND post_type = 'object' ORDER BY post_date";
 }
 
-$metas = $wpdb->get_results($q);
+$objects = $wpdb->get_results($q);
 
 header('Pragma: public');
 header('Cache-Control: no-store, no-cache, must-revalidate'); // HTTP/1.1
@@ -53,18 +58,18 @@ header('Content-Disposition: attachment; filename=metas-sugeridas-consulta.xls')
         <td>E-mail</td>
     </tr>'); ?>
 
-<?php foreach ($metas as $c) : ?>
+<?php foreach ($objects as $object) : ?>
 
     <?php ob_start(); ?>
     
     <tr>
-        <td><?php echo $c->ID; ?></td>
-        <td><?php echo date('d/m/Y', strtotime($c->post_date)); ?></td>
-        <td><?php echo $c->post_title; ?></td>
-        <td><?php echo $c->post_content; ?></td>
+        <td><?php echo $object->ID; ?></td>
+        <td><?php echo date('d/m/Y', strtotime($object->post_date)); ?></td>
+        <td><?php echo $object->post_title; ?></td>
+        <td><?php echo $object->post_content; ?></td>
         
         <?php
-        $the_terms =  get_the_terms($c->ID, 'tema');
+        $the_terms = get_the_terms($object->ID, 'object_type');
         ?>
         
         <td><?
@@ -76,9 +81,9 @@ header('Content-Disposition: attachment; filename=metas-sugeridas-consulta.xls')
             ?>
         </td>
         
-        <?php $author = get_userdata($c->post_author); ?>
+        <?php $author = get_userdata($object->post_author); ?>
         
-        <td><?php echo $c->post_author; ?></td>
+        <td><?php echo $object->post_author; ?></td>
         <td><?php echo $author->display_name; ?></td>
         <td><?php echo $author->user_email; ?></td>
     </tr>

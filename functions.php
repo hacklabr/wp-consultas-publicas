@@ -77,7 +77,7 @@ add_action('admin_enqueue_scripts', function() {
     wp_enqueue_script('consulta-datepicker', get_template_directory_uri() . '/js/consulta-datepicker.js', array('consulta'));
     
     if (get_current_screen()->id == 'opcoes-da-consulta_page_export_comments'
-        || get_current_screen()->id == 'opcoes-da-consulta_page_exportador_metas_sugeridas')
+        || get_current_screen()->id == 'opcoes-da-consulta_page_exportador_objetos_sugeridos')
     {
         wp_enqueue_script('consulta-exportador', get_template_directory_uri() . '/js/consulta-exportador.js', array('jquery'));
     }
