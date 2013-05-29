@@ -40,9 +40,15 @@ jQuery(document).ready(function() {
         jQuery(this).parent('li').addClass('active');
         jQuery('.aba-container').hide();
         jQuery('#' + jQuery(this).attr('id') + '-container').show();
+        jQuery.cookie('consulta-active-tab', jQuery(this).attr('id'), { expires: 30 });
     });
     
-    jQuery('#abas-secoes li.active a').click();
+    if (jQuery.cookie('consulta-active-tab')) {
+        jQuery('#' + jQuery.cookie('consulta-active-tab')).click();
+        jQuery.cookie('consulta-active-tab', null)
+    } else {
+        jQuery('#abas-secoes li.active a').click();
+    }
     
     jQuery('.radio_evaluation_type').click(function() {
         var image = 'perce';
