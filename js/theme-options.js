@@ -40,12 +40,12 @@ jQuery(document).ready(function() {
         jQuery(this).parent('li').addClass('active');
         jQuery('.aba-container').hide();
         jQuery('#' + jQuery(this).attr('id') + '-container').show();
-        jQuery.cookie('consulta-active-tab', jQuery(this).attr('id'), { expires: 30 });
+        jQuery.cookie('consulta-active-tab', jQuery(this).attr('id'));
     });
     
     if (jQuery.cookie('consulta-active-tab')) {
         jQuery('#' + jQuery.cookie('consulta-active-tab')).click();
-        jQuery.cookie('consulta-active-tab', null)
+        jQuery.removeCookie('consulta-active-tab')
     } else {
         jQuery('#abas-secoes li.active a').click();
     }
