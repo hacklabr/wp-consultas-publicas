@@ -48,6 +48,10 @@ class ReportTable extends WP_List_Table {
             'user_created' => __('Criado por usuário?', 'consulta'),
         );
         
+		if (!get_theme_option('enable_taxonomy')) {
+			unset($columns['type']);
+		}
+		
         return $columns;
     }
     
@@ -73,7 +77,19 @@ class ReportTable extends WP_List_Table {
         
         $this->_column_headers = array($columns, $hidden, $sortable);
         
-        $data = $wpdb->get_results("SELECT * FROM $wpdb->posts p, $wpdb->postmeta pm WHERE p.ID = pm.post_id AND p.post_type = 'object' AND p.post_status = 'publish' AND pm.meta_key = '_user_created'");
+        $query = "SELECT * FROM $wpdb->posts p, $wpdb->postmeta pm WHERE p.ID = pm.post_id AND p.post_type = 'object' AND p.post_status = 'publish' AND pm.meta_key = '_user_created'";
+        
+        var_dump($_REQUEST['who_created']);
+        // filtra objetos criados pelos admins ou pelos usuários
+        if (isset($_REQUEST['who_created']) && $_REQUEST['who_created'] != 'all') {
+            if ($_REQUEST['who_created'] == 'user_created') {
+                $query .= ' AND pm.meta_value = 1';
+            } else {
+                $query .= ' AND (pm.meta_value IS NULL OR pm.meta_value = 0)';
+            }
+        }
+        
+        $data = $wpdb->get_results($query);
         
         foreach ($data as $item) {
             $item->evaluation_count = count_votes($item->ID);
@@ -107,6 +123,18 @@ class ReportTable extends WP_List_Table {
         return $this->items;
     }
     
+    function extra_tablenav($which) {
+        ?>
+        <div class="alignleft actions">
+            <select class="postform" id="who_created" name="who_created">
+                <option value="all" <?php isset($_REQUEST['who_created']) ? selected('all', $_REQUEST['who_created']) : ''; ?>>Todos os objetos</option>
+                <option value="admin_created" <?php isset($_REQUEST['who_created']) ? selected('admin_created', $_REQUEST['who_created']) : ''; ?>>Objetos criados pelos admins</option>
+                <option value="user_created" <?php isset($_REQUEST['who_created']) ? selected('user_created', $_REQUEST['who_created']) : ''; ?>>Objetos criados pelos usuários</option>
+            </select>
+            <?php submit_button(__('Filter'), 'button', false, false, array('id' => 'post-query-submit')); ?>
+        </div>
+        <?php
+    }
 }
 
 add_action('admin_menu', 'relatorio_menu');
@@ -144,7 +172,10 @@ function relatorio_page_callback_function() {
             
             <p><?php printf(__('Total de votos: %d', 'consulta'), $reportTable->total_votes); ?></p>
             
-            <?php $reportTable->display(); ?>
+            <form id="posts-filter" action="" method="get">
+                <input type="hidden" name="page" value="relatorio" />
+                <?php $reportTable->display(); ?>
+            </form>
         <?php else : ?>
             <p><?php _e('Nenhum objeto criado até o momento.', 'consulta'); ?></p>
         <?php endif; ?>
