@@ -161,25 +161,21 @@ function relatorio_page_callback_function() {
 
         <p><?php _e('A tabela abaixo lista todos os objetos desta consulta com o número de comentários e o resultado da avaliação quantitativa.', 'consulta'); ?></p>
         
-        <?php if ($reportTable->prepare_items()) : ?>
-            <p><?php printf(__('Objetos criados pela equipe: %d', 'consulta'), $totalObjects); ?></p>
-        
-            <?php if (get_theme_option('allow_suggested')) : ?>
-                <p><?php printf(__('Objetos criados pelos usuários: %d', 'consulta'), $totalSuggestedObjects); ?></p>
-            <?php endif; ?>
-            
-            <p><?php printf(__('Total de comentários: %d', 'consulta'), $totalComments); ?></p>
-            
-            <p><?php printf(__('Total de votos: %d', 'consulta'), $reportTable->total_votes); ?></p>
-            
-            <form id="posts-filter" action="" method="get">
-                <input type="hidden" name="page" value="relatorio" />
-                <?php $reportTable->display(); ?>
-            </form>
-        <?php else : ?>
-            <p><?php _e('Nenhum objeto criado até o momento.', 'consulta'); ?></p>
+        <?php $reportTable->prepare_items(); ?>
+        <p><?php printf(__('Objetos criados pela equipe: %d', 'consulta'), $totalObjects); ?></p>
+    
+        <?php if (get_theme_option('allow_suggested')) : ?>
+            <p><?php printf(__('Objetos criados pelos usuários: %d', 'consulta'), $totalSuggestedObjects); ?></p>
         <?php endif; ?>
-         
+        
+        <p><?php printf(__('Total de comentários: %d', 'consulta'), $totalComments); ?></p>
+        
+        <p><?php printf(__('Total de votos: %d', 'consulta'), $reportTable->total_votes); ?></p>
+        
+        <form id="posts-filter" action="" method="get">
+            <input type="hidden" name="page" value="relatorio" />
+            <?php $reportTable->display(); ?>
+        </form>
     </div>
     <?php 
 }
