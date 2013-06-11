@@ -95,7 +95,11 @@ function consulta_addJS() {
         wp_enqueue_script('evaluation', get_template_directory_uri() . '/js/evaluation.js', array('jquery'));
     }
     
-    if (is_singular()) wp_enqueue_script( 'comment-reply' );
+    if (is_singular()) {
+        wp_enqueue_script( 'comment-reply' );
+    }
+    
+    wp_enqueue_style('evaluation', get_template_directory_uri() . '/css/evaluation.css');
 }
 add_action('wp_print_scripts', 'consulta_addJS');
 
@@ -384,15 +388,29 @@ function consulta_customize_register($wp_customize) {
     );
 }
 
+/**
+ * Retorna as cores para os títulos e links
+ * do site.
+ * 
+ * @return array na primeira posição a cor dos links e na segunda a cor dos títulos 
+ * 
+ */
+function consulta_get_theme_colors() {
+    $colors = array();
+    $options = get_option('consulta_theme_options');
+    
+    $colors[] = isset($options['link_color']) ? $options['link_color'] : '#00A0D0';
+    $colors[] = isset($options['title_color']) ? $options['title_color'] : '#006633';
+    
+    return $colors;
+}
 
 /**
  * Add to the header the CSS elements that can
  * be altered dinamically with the theme customizer
  */
 add_action('wp_print_styles', function() {
-    $options = get_option('consulta_theme_options');
-    $linkColor = isset($options['link_color']) ? $options['link_color'] : '#00A0D0';
-    $titleColor = isset($options['title_color']) ? $options['title_color'] : '#006633';
+    list($linkColor, $titleColor) = consulta_get_theme_colors();
     ?>
     <style>
     /* Colors */
