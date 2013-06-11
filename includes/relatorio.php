@@ -79,7 +79,6 @@ class ReportTable extends WP_List_Table {
         
         $query = "SELECT * FROM $wpdb->posts p, $wpdb->postmeta pm WHERE p.ID = pm.post_id AND p.post_type = 'object' AND p.post_status = 'publish' AND pm.meta_key = '_user_created'";
         
-        var_dump($_REQUEST['who_created']);
         // filtra objetos criados pelos admins ou pelos usuários
         if (isset($_REQUEST['who_created']) && $_REQUEST['who_created'] != 'all') {
             if ($_REQUEST['who_created'] == 'user_created') {
@@ -91,11 +90,16 @@ class ReportTable extends WP_List_Table {
         
         $data = $wpdb->get_results($query);
         
-        foreach ($data as $item) {
+        foreach ($data as $key => $item) {
             $item->evaluation_count = count_votes($item->ID);
             $this->total_votes += $item->evaluation_count;
             
             $item->comments_count = wp_count_comments($item->ID)->approved;
+            
+            // filtra objetos por tipo
+            if (isset($_REQUEST['cat']) && !has_term($_REQUEST['cat'], 'object_type', $item->ID)) {
+                unset($data[$key]);
+            }
         }
         
         function usort_reorder($a,$b){
@@ -110,30 +114,57 @@ class ReportTable extends WP_List_Table {
         
         $total_items = count($data);
         
-        $data = array_slice($data,(($current_page-1)*$per_page),$per_page);
+        if ($per_page > 0) {
+            $data = array_slice($data, (($current_page-1) * $per_page), $per_page);
+        }
         
         $this->items = $data;
         
         $this->set_pagination_args( array(
-            'total_items' => $total_items,                  //WE have to calculate the total number of items
-            'per_page'    => $per_page,                     //WE have to determine how many items to show on a page
-            'total_pages' => ceil($total_items/$per_page)   //WE have to calculate the total number of pages
+            'total_items' => $total_items,
+            'per_page'    => $per_page,
+            'total_pages' => ceil($total_items / $per_page)
         ) );
         
         return $this->items;
     }
     
     function extra_tablenav($which) {
-        ?>
-        <div class="alignleft actions">
-            <select class="postform" id="who_created" name="who_created">
-                <option value="all" <?php isset($_REQUEST['who_created']) ? selected('all', $_REQUEST['who_created']) : ''; ?>>Todos os objetos</option>
-                <option value="admin_created" <?php isset($_REQUEST['who_created']) ? selected('admin_created', $_REQUEST['who_created']) : ''; ?>>Objetos criados pelos admins</option>
-                <option value="user_created" <?php isset($_REQUEST['who_created']) ? selected('user_created', $_REQUEST['who_created']) : ''; ?>>Objetos criados pelos usuários</option>
-            </select>
-            <?php submit_button(__('Filter'), 'button', false, false, array('id' => 'post-query-submit')); ?>
-        </div>
-        <?php
+        if ($which == 'top') :
+            $labels = get_theme_option('taxonomy_labels');
+        
+            ?>
+            <div class="alignleft actions">
+                <?php
+                if (get_theme_option('enable_taxonomy')) {
+                                    
+                    $labels = get_theme_option('taxonomy_labels');
+                    
+                    $dropdown_options = array(
+                        'taxonomy' => 'object_type',
+                        'show_option_all' => $labels['all_items'],
+                        'hide_empty' => true,
+                        'hierarchical' => 1,
+                        'show_count' => 0,
+                        'orderby' => 'name',
+                    );
+                    
+                    if (isset($_REQUEST['cat'])) {
+                        $dropdown_options['selected'] = $_REQUEST['cat'];
+                    }
+                    
+                    wp_dropdown_categories($dropdown_options);
+                }
+                ?>
+                <select class="postform" id="who_created" name="who_created">
+                    <option value="all" <?php isset($_REQUEST['who_created']) ? selected('all', $_REQUEST['who_created']) : ''; ?>>Todos os objetos</option>-
+                    <option value="admin_created" <?php isset($_REQUEST['who_created']) ? selected('admin_created', $_REQUEST['who_created']) : ''; ?>>Objetos criados pelos admins</option>
+                    <option value="user_created" <?php isset($_REQUEST['who_created']) ? selected('user_created', $_REQUEST['who_created']) : ''; ?>>Objetos criados pelos usuários</option>
+                </select>
+                <?php submit_button(__('Filter'), 'button', false, false, array('id' => 'post-query-submit')); ?>
+            </div>
+            <?php
+        endif;
     }
 }
 
