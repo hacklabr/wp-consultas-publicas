@@ -51,9 +51,12 @@ class ReportTable extends WP_List_Table {
     }
     
     function get_columns() {
+        $objectLabels = get_theme_option('object_labels');
+        $taxonomyLabels = get_theme_option('taxonomy_labels');
+        
         $columns = array(
-            'post_title' => __('Título', 'consulta'),
-            'type' => __('Tipo de objeto', 'consulta'),
+            'post_title' => $objectLabels['singular_name'],
+            'type' => $taxonomyLabels['singular_name'],
             'comments_count'    => __('Número de comentários'),
             'evaluation_count'  => __('Número de votos'),
             'user_created' => __('Criado por usuário?', 'consulta'),
@@ -189,7 +192,7 @@ function relatorio_page_callback_function() {
     
     wp_enqueue_script('object-report', get_template_directory_uri() . '/js/object-report.js');
     wp_enqueue_style('evaluation', get_template_directory_uri() . '/css/evaluation.css');
-    list($linkColor, $titleColor) = consulta_get_theme_colors();
+    wp_enqueue_style('object-report', get_template_directory_uri() . '/css/object-report.css');
     
     $reportTable = new ReportTable;
     
@@ -202,10 +205,6 @@ function relatorio_page_callback_function() {
     $totalComments = wp_count_comments()->approved;
     
     ?>
-    <style>
-        .evaluation_bar { background-color: <?php echo $linkColor; ?> }
-        .toggle_evaluation { cursor: pointer; }
-    </style>
     
     <div class="wrap span-20">
         <h2><?php _e('Relatório', 'consulta'); ?></h2>
