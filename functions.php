@@ -512,6 +512,38 @@ function count_votes($postId) {
 }
 
 /**
+ * Verifica se usuário atual ainda pode votar: havendo limite, o número de votos deste usuário deve ser menor do que este limite
+ * @global type $wpdb
+ * @return boolean
+ */
+function current_user_can_vote(){
+    $options = wp_parse_args( 
+        get_option('theme_options'), 
+        get_theme_default_options()
+    );
+    
+    if(!$options['evaluation_limit'])
+        return true;
+    
+    global $wpdb;
+    
+    $user_id = get_current_user_id();
+    
+    $num = intval($wpdb->get_var("SELECT COUNT(meta_id) FROM $wpdb->postmeta WHERE meta_key IN ( '_label_1' , '_label_2' , '_label_3' , '_label_4' , '_label_5' ) AND meta_value = '$user_id'"));
+    
+    return intval($options['evaluation_max_num']) > $num;
+}
+
+function evaluation_allow_remove_votes(){
+    $options = wp_parse_args( 
+        get_option('theme_options'), 
+        get_theme_default_options()
+    );
+    
+    return $options['evaluation_allow_remove'];
+}
+
+/**
  * Compute user vote for object evaluation
  */
 add_action('wp_ajax_object_evaluation', function() {
@@ -519,12 +551,15 @@ add_action('wp_ajax_object_evaluation', function() {
     $userVote = filter_input(INPUT_POST, 'userVote', FILTER_SANITIZE_STRING);
     $postId = filter_input(INPUT_POST, 'postId', FILTER_SANITIZE_NUMBER_INT);
     
+    
+    
     // delete old vote if user already voted
     if ($userOldVote = get_user_vote($postId)) {
         delete_post_meta($postId, $userOldVote, get_current_user_id());
     }
     
-    add_post_meta($postId, '_' . $userVote, get_current_user_id());
+    if($userVote)
+        add_post_meta($postId, '_' . $userVote, get_current_user_id());
     
     global $post;
     

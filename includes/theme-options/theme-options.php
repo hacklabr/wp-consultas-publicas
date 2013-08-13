@@ -44,7 +44,11 @@ function get_theme_default_options() {
         'evaluation_text' => __('Você concorda com esta proposta?', 'consulta'),
         'evaluation_type' => 'percentage',
         
-        'pagina_participe' => ''
+        'pagina_participe' => '',
+        
+        'evaluation_limit'=> false,
+        'evaluation_max_num' => 5,
+        'evaluation_allow_remove' => false
     );
 
 }
@@ -129,6 +133,9 @@ function theme_options_page_callback_function() {
     #abas-secoes a:hover { text-decoration: none;  }
     
     #exemplo_resultado { padding: 15px; border: 1px solid grey; }
+    
+    #evaluation_max_num_container { padding-left: 25px; }
+    #evaluation_max_num_container input { width: 50px; }
     </style>
     
     <div class="wrap span-20">
@@ -361,8 +368,19 @@ function theme_options_page_callback_function() {
 
                     <input type="checkbox" id="use_evaluation" name="theme_options[use_evaluation]" value="on" <?php checked('on', $options['use_evaluation']); ?> />
                     <label for="use_evaluation"><?php _e('Permitir que os usuários avaliem os objetos', 'consulta'); ?></label>
+                    
 
                     <div id="use_evaluation_labels_container">
+                        <br/><br/>
+                        <input type="checkbox" id="evaluation_limit" name="theme_options[evaluation_limit]" value="on" <?php checked('on', $options['evaluation_limit']); ?> />
+                        <label for="evaluation_limit"><?php _e('Limitar número de objetos que os usuários podem avaliar', 'consulta'); ?></label>
+                        <div id="evaluation_max_num_container">
+                            <label for="evaluation_max_num">Número máximo de objetos:</label>
+                            <input type="number" id="evaluation_max_num" name="theme_options[evaluation_max_num]" value="<?php echo $options['evaluation_max_num']; ?>" min="0"/>
+                        </div>
+                        <br/><br/>
+                        <input type="checkbox" id="evaluation_allow_remove" name="theme_options[evaluation_allow_remove]" value="on" <?php checked('on', $options['evaluation_allow_remove']); ?> />
+                        <label for="evaluation_allow_remove"><?php _e('Permitir que os usuários removam suas avaliações', 'consulta'); ?></label>
                         <br/><br/>
                         <input type="checkbox" id="evaluation_show_on_list" name="theme_options[evaluation_show_on_list]" value="on" <?php checked('on', $options['evaluation_show_on_list']); ?> />
                         <label for="evaluation_show_on_list"><?php _e('Exibir avaliação na listagem de objetos por título ou por título e taxonomia', 'consulta'); ?></label>

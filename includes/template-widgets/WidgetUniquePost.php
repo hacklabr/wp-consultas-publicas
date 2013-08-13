@@ -1,4 +1,5 @@
 <?php
+require_once dirname(__FILE__) . '/WidgetTemplate.php';
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
