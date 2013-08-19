@@ -60,4 +60,16 @@ jQuery(document).ready(function() {
         
     });
     jQuery('.radio_evaluation_type:checked').click();
+    
+    
+    var evaluation_limit_checkbox = function(animate){
+        var $div = jQuery('#evaluation_max_num_container');
+        if(jQuery('#evaluation_limit').is(':checked')){
+            animate ? $div.slideDown() : $div.show();
+        }else{
+            animate ? $div.slideUp() : $div.hide();
+        }
+    };
+    evaluation_limit_checkbox(false);
+    jQuery('#evaluation_limit').click(evaluation_limit_checkbox);
 });

@@ -72,22 +72,32 @@
         <?php endif; ?>
     
         <?php if (is_user_logged_in()): ?>
-            <div class="user_evaluation">            
+            <?php $can_vote = current_user_can_vote() || $userVote; ?>
+            
+            <div class="user_evaluation">
                 <h5><?php _e('Minha avaliação', 'consulta'); ?></h5>
-                
+                    
                 <form id="object_evaluation">
-                    <input type="hidden" id="post_id" name="post_id" value="<?php the_ID(); ?>" />      
+                    
+                    <input type="hidden" id="post_id" name="post_id" value="<?php the_ID(); ?>" />
+                    <?php if($can_vote && evaluation_allow_remove_votes()) $evaluationOptions = array('0' => "Não avaliar") + $evaluationOptions ?>
+
                     <?php foreach ($evaluationOptions as $key => $value) : ?>
                         <?php if (empty($value)) break; ?>
-                        
+
                         <div class="list_object">
-                            <input type="radio" id="<?php echo $key; ?>" name="object_evaluation" <?php checked($userVote === $key); ?> />
+                            <input type="radio" id="<?php echo $key; ?>" name="object_evaluation" <?php checked($userVote == $key); ?> <?php if(!$can_vote) echo 'disabled="disabled"' ?> />
                             <label for="<?php echo $key; ?>"><?php echo $value; ?></label>
                             <div class="object_evaluation_feedback" style="display: inline;"><img style="float: left; margin-left: 5px;" src="<?php bloginfo('stylesheet_directory'); ?>/img/accept.png" alt="" /></div>
                         </div>
                     <?php endforeach; ?>
                 </form>
+                
+                <?php if(!$can_vote) :?>
+                    <em><?php _e('Você não pode avaliar este objeto porque você já atingiu o limite de avaliações para esta consulta.','consulta') ?></em>
+                <?php endif; ?>
             </div>
+            
         <?php else: ?>
             <p><?php _e('Para avaliar é necessário estar cadastrado e ter efetuado login.', 'consulta'); ?></p>
         <?php endif; ?>
