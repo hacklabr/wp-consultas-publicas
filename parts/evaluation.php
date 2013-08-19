@@ -88,7 +88,7 @@
                         <div class="list_object">
                             <input type="radio" id="<?php echo $key; ?>" name="object_evaluation" <?php checked($userVote == $key); ?> <?php if(!$can_vote) echo 'disabled="disabled"' ?> />
                             <label for="<?php echo $key; ?>"><?php echo $value; ?></label>
-                            <div class="object_evaluation_feedback" style="display: inline;"><img style="float: left; margin-left: 5px;" src="<?php bloginfo('stylesheet_directory'); ?>/img/accept.png" alt="" /></div>
+                            <div class="object_evaluation_feedback" style="display: none;"><img style="float: left; margin-left: 5px;" src="<?php bloginfo('stylesheet_directory'); ?>/img/accept.png" alt="" /></div>
                         </div>
                     <?php endforeach; ?>
                 </form>
