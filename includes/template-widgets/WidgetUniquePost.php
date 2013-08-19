@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+require_once('WidgetTemplate.php');
+ 
 /**
  * Description of WidgetUniquePost
  *
