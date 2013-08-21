@@ -79,15 +79,17 @@
                     
                 <form id="object_evaluation">
                     
-                    <input type="hidden" id="post_id" name="post_id" value="<?php the_ID(); ?>" />
+                    <input type="hidden" name="post_id" value="" />
                     <?php if($can_vote && evaluation_allow_remove_votes()) $evaluationOptions = array('0' => "Não avaliar") + $evaluationOptions ?>
 
                     <?php foreach ($evaluationOptions as $key => $value) : ?>
                         <?php if (empty($value)) break; ?>
 
                         <div class="list_object">
-                            <input type="radio" id="<?php echo $key; ?>" name="object_evaluation" <?php checked($userVote == $key); ?> <?php if(!$can_vote) echo 'disabled="disabled"' ?> />
-                            <label for="<?php echo $key; ?>"><?php echo $value; ?></label>
+                            <label>
+                                <input type="radio" value="<?php echo $key; ?>" data-post_id="<?php the_ID(); ?>" name="object_evaluation" <?php checked($userVote == $key); ?> <?php if(!$can_vote) echo 'disabled="disabled"' ?> />
+                                <?php echo $value; ?>
+                            </label>
                             <div class="object_evaluation_feedback" style="display: none;"><img style="float: left; margin-left: 5px;" src="<?php bloginfo('stylesheet_directory'); ?>/img/accept.png" alt="" /></div>
                         </div>
                     <?php endforeach; ?>

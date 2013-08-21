@@ -3,10 +3,11 @@ jQuery(document).ready(function() {
     jQuery('#object_evaluation input').live('click', function() {
         var radioButton = jQuery(this);
         jQuery('body').css('cursor', 'progress');
+        
         jQuery.ajax({
             url: consulta.ajaxurl,
             type: 'post',
-            data: {action: 'object_evaluation', userVote: jQuery(this).attr('id'), postId: jQuery(this).parent().siblings('#post_id').val() },
+            data: {action: 'object_evaluation', userVote: jQuery(this).val(), postId: jQuery(this).data('post_id') },
             dataType: 'json',
             success: function(data) {
                 jQuery('body').css('cursor', 'auto');
