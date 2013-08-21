@@ -1,6 +1,6 @@
 <div class="interaction clearfix">
 	<?php if ( !is_page() ) : ?>
-		<div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
+		<a href="#comments"><div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div></a>
 	<?php endif; ?>
 	<div>
 		<!-- AddToAny BEGIN -->
