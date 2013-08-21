@@ -10,8 +10,6 @@
             </h1>
     
             <div class="clear"></div>
-            
-            <?php do_action('consulta_after_object_title'); ?>
         </header>
 
         <div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
