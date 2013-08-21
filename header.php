@@ -40,6 +40,8 @@
 </head>
 
 <body <?php body_class(); ?>>
+    <?php do_action('consulta_body_top'); ?>
+    
     <div id="overlay"></div>
         <div class="container">
             <header id="main-header" class="clearfix">

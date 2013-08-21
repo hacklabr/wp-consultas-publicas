@@ -13,18 +13,17 @@ jQuery(document).ready(function() {
                 jQuery('body').css('cursor', 'auto');
                 radioButton.closest('li').find('.count_object_votes').html(data.count);
                 radioButton.closest('.evaluation_container').html(data.html);
-                jQuery('.object_evaluation_feedback').hide();
                 jQuery('input[name=object_evaluation]:checked').siblings('.object_evaluation_feedback').show();
                 jQuery('input[name=object_evaluation]:checked').siblings('.object_evaluation_feedback').delay(1500).fadeOut('slow');
             }
         });
     });
     
-    // esconde os botões de feedback para o usuário
-    jQuery('.object_evaluation_feedback').hide();
-    
     // controla a exibicao da caixa de avaliacao na listagem de objetos
     jQuery('.show_evaluation').click(function() {
+        // na listagem de objetos mostra apenas uma caixa de avaliação por vez (ver http://code.hacklab.com.br/issues/1925)
+        jQuery('.evaluation_container').hide(1000);
+        
         jQuery(this).parent().siblings('.evaluation_container').toggle('slow');
     });
 });
