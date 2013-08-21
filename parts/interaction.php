@@ -1,9 +1,6 @@
 <div class="interaction clearfix">
 	<?php if ( !is_page() ) : ?>
 		<div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
-		<?php if (get_post_type() == 'object'): ?>
-        <div class="commenters-number" title="número de pessoas que comentaram"><span class="commenters-number-icon"></span><?php echo get_num_pessoas_comentarios($post->ID); ?></div>
-        <?php endif; ?>
 	<?php endif; ?>
 	<div>
 		<!-- AddToAny BEGIN -->
