@@ -547,20 +547,24 @@ function evaluation_allow_remove_votes(){
  * Compute user vote for object evaluation
  */
 add_action('wp_ajax_object_evaluation', function() {
-    $data = array();
+    $data = array('voted'=>true);
     $userVote = filter_input(INPUT_POST, 'userVote', FILTER_SANITIZE_STRING);
     $postId = filter_input(INPUT_POST, 'postId', FILTER_SANITIZE_NUMBER_INT);
-    
-    
-    
-    // delete old vote if user already voted
+
+    // se já votou, altera o voto deletando o antigo e inserindo novo se o voto for diferente de zero
     if ($userOldVote = get_user_vote($postId)) {
         delete_post_meta($postId, $userOldVote, get_current_user_id());
+        if($userVote)
+            add_post_meta($postId, '_' . $userVote, get_current_user_id());
+
+    // caso não tenha votado, só deixa votar se não atingiu o limite
+    }elseif($userVote && current_user_can_vote()){
+        add_post_meta($postId, '_' . $userVote, get_current_user_id());
+    }else{
+        $data['voted'] = false;
     }
     
-    if($userVote)
-        add_post_meta($postId, '_' . $userVote, get_current_user_id());
-    
+
     global $post;
     
     $post = get_post($postId);

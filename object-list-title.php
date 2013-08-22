@@ -9,7 +9,7 @@ $suggestedLabels = get_theme_option('suggested_labels');
 get_header();
 
 ?>
-    
+
 <section id="main-section" class="span-15 prepend-1 append-1">
     <h2><?php echo $post_type_object->labels->name; ?></h2>
     <?php if (is_tax('object_type')) :

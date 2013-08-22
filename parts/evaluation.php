@@ -80,7 +80,6 @@
                 <form id="object_evaluation">
                     
                     <input type="hidden" id="post_id" name="post_id" value="<?php the_ID(); ?>" />
-                    <?php if($can_vote && evaluation_allow_remove_votes()) $evaluationOptions = array('0' => "Não avaliar") + $evaluationOptions ?>
 
                     <?php foreach ($evaluationOptions as $key => $value) : ?>
                         <?php if (empty($value)) break; ?>

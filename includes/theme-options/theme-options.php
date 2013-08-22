@@ -58,6 +58,9 @@ function get_theme_option($option_name) {
         get_option('theme_options'), 
         get_theme_default_options()
     );
+    if($option_name == 'evaluation_labels' && evaluation_allow_remove_votes()){
+        $option[$option_name] = array('0' => "Não avaliar") + $option[$option_name];
+    }
     return isset($option[$option_name]) ? $option[$option_name] : false;
 }
 
