@@ -86,6 +86,8 @@ add_action('admin_enqueue_scripts', function() {
 
 // JS
 function consulta_addJS() {
+    global $wp_query;
+    
     wp_enqueue_script('scrollto', get_template_directory_uri() . '/js/jquery.scrollTo-1.4.2-min.js',array('jquery'));
     wp_enqueue_script('consulta', get_template_directory_uri() . '/js/consulta.js',array('jquery', 'scrollto'));
     wp_localize_script('consulta', 'consulta', array( 'ajaxurl' => admin_url('admin-ajax.php') ));
@@ -100,6 +102,10 @@ function consulta_addJS() {
     }
     
     wp_enqueue_style('evaluation', get_template_directory_uri() . '/css/evaluation.css');
+    
+    if ($wp_query->get('tpl') == 'novo') {
+        wp_enqueue_script('consulta-object-new', get_stylesheet_directory_uri() . '/js/consulta-object-new.js', array('jquery'));
+    }
 }
 add_action('wp_print_scripts', 'consulta_addJS');
 
