@@ -6,6 +6,7 @@ include dirname(__FILE__).'/includes/utils.class.php';
 
 include dirname(__FILE__).'/includes/exportador-comentarios.php';
 include dirname(__FILE__).'/includes/exportador-objetos-sugeridos.php';
+include dirname(__FILE__).'/includes/exportador-avaliacoes.php';
 include dirname(__FILE__).'/includes/relatorio.php';
 
 add_action( 'after_setup_theme', 'consulta_setup' );
@@ -498,6 +499,71 @@ function get_votes($postId) {
     }
     
     return $votes;
+}
+
+/**
+ * Retorna o id do usuário com o seu voto em um post.
+ * Diferente da get_votes() que retorna apenas quantos votos
+ * cada opção teve para um post.
+ *
+ * @param int $postId
+ * @return array array cuja a chave é o id do usuário e o valor é o seu voto
+ */
+function get_votes_data($postId) {
+    $votes = array();
+
+    foreach (range(1, 5) as $i) {
+        $optionVotes = get_post_meta($postId, '_label_' . $i);
+        
+        if (!empty($optionVotes)) {
+            foreach($optionVotes as $userId) {
+                $votes[$userId] = '_label_' . $i;
+            }
+        }
+    }
+
+    return $votes;
+}
+
+/**
+ * Retorna todos os votos para
+ * todos os objetos
+ * 
+ * @return array
+ */
+function get_all_votes() {
+    $votes = array();
+    $objects = get_posts(array('post_type' => 'object', 'posts_per_page' => -1));
+    
+    foreach ($objects as $object) {
+        $objectVotes = get_votes_data($object->ID);
+        
+        if (!empty($objectVotes)) {
+            foreach ($objectVotes as $user_id => $vote) {
+                $votes[] = array('post_id' => $object->ID, 'user_id' => $user_id, 'vote' => $vote);
+            }
+        }
+    }
+    
+    return $votes;
+}
+
+/**
+ * Retorna o label do voto de um usuário.
+ * 
+ * @param string $vote_id
+ * @return string
+ */
+function get_vote_label($vote_id) {
+    $evaluationLabels = get_theme_option('evaluation_labels');
+    // remove o underscore que é usado para guardar o postmeta mas não é usado na opção evaluation_labels
+    $vote_id = substr($vote_id, 1);
+    
+    if (isset($evaluationLabels[$vote_id])) {
+        return $evaluationLabels[$vote_id];
+    } else {
+        throw new Exception("Label de voto '{$vote_id}' inválido.");
+    }
 }
 
 /**
