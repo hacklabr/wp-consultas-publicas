@@ -22,6 +22,9 @@
                     <?php
                     $ii = 0;
                     foreach ($evaluationOptions as $key => $value) :
+                        if( ! $key )
+                            continue; 
+                        
                         if (empty($value)) {
                             break;
                         }
