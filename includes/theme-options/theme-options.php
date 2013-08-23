@@ -382,9 +382,11 @@ function theme_options_page_callback_function() {
                             <input type="number" id="evaluation_max_num" name="theme_options[evaluation_max_num]" value="<?php echo $options['evaluation_max_num']; ?>" min="0"/>
                         </div>
                         <br/><br/>
-                        <input type="checkbox" id="evaluation_allow_remove" name="theme_options[evaluation_allow_remove]" value="on" <?php checked('on', $options['evaluation_allow_remove']); ?> />
-                        <label for="evaluation_allow_remove"><?php _e('Permitir que os usuários removam suas avaliações', 'consulta'); ?></label>
-                        <br/><br/>
+                        <p style="display:none">
+                            <input type="checkbox" id="evaluation_allow_remove" name="theme_options[evaluation_allow_remove]" value="on" <?php checked('on', $options['evaluation_allow_remove']); ?> />
+                            <label for="evaluation_allow_remove"><?php _e('Permitir que os usuários removam suas avaliações', 'consulta'); ?></label>
+                            <br/><br/>
+                        </p>
                         <input type="checkbox" id="evaluation_show_on_list" name="theme_options[evaluation_show_on_list]" value="on" <?php checked('on', $options['evaluation_show_on_list']); ?> />
                         <label for="evaluation_show_on_list"><?php _e('Exibir avaliação na listagem de objetos por título ou por título e taxonomia', 'consulta'); ?></label>
                         <br/><br/>

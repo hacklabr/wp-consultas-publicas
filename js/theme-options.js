@@ -66,10 +66,14 @@ jQuery(document).ready(function() {
         var $div = jQuery('#evaluation_max_num_container');
         if(jQuery('#evaluation_limit').is(':checked')){
             animate ? $div.slideDown() : $div.show();
+            jQuery('#evaluation_allow_remove').attr('checked', true);
         }else{
             animate ? $div.slideUp() : $div.hide();
+            jQuery('#evaluation_allow_remove').attr('checked', false);
         }
     };
     evaluation_limit_checkbox(false);
     jQuery('#evaluation_limit').click(evaluation_limit_checkbox);
 });
+
+
