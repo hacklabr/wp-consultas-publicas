@@ -22,6 +22,7 @@
                     <?php
                     $ii = 0;
                     foreach ($evaluationOptions as $key => $value) :
+                        // se a opção for Não Avaliar (valor da chave é zero)
                         if( ! $key )
                             continue; 
                         
@@ -57,6 +58,10 @@
                     <?php
                     $ii = 1;
                     foreach ($evaluationOptions as $key => $value) :
+                        // se a opção for Não Avaliar (valor da chave é zero)
+                        if( ! $key )
+                            continue; 
+                        
                         if (empty($value)) {
                             break;
                         }

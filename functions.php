@@ -707,26 +707,18 @@ function consulta_get_votes_average($votes) {
 }
 
 function consulta_get_width_item() {
-
-    $evaluationOptions = get_theme_option('evaluation_labels');
-    
-    $i = 0;
-    foreach ($evaluationOptions as $key => $value) {
-        if (empty($value)) break;
-        $i++;
-    }
-    
-    return 100 / $i;
-    
-
+    return 100 / consulta_get_number_alternatives();
 }
 
 function consulta_get_number_alternatives() {
 
     $evaluationOptions = get_theme_option('evaluation_labels');
-    
     $i = 0;
     foreach ($evaluationOptions as $key => $value) {
+        // se a opção for Não Avaliar (valor da chave é zero)
+        if( ! $key )
+            continue;
+        
         if (empty($value)) break;
         $i++;
     }
