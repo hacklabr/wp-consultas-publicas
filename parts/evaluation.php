@@ -4,6 +4,8 @@
     $userVote = str_replace('_label_', 'label_', get_user_vote($postId));
     $votes = get_votes($postId);
     $evaluation_type = get_theme_option('evaluation_type');
+    $in_list = isset($in_list) ? $in_list : false;
+    
     ?>
 
     <div class="evaluation clearfix">
@@ -94,7 +96,7 @@
 
                         <div class="list_object">
                             <label>
-                                <input type="radio" value="<?php echo $key; ?>" data-post_id="<?php the_ID(); ?>" name="object_evaluation" <?php checked($userVote == $key); ?> <?php if(!$can_vote) echo 'disabled="disabled"' ?> />
+                                <input type="radio" value="<?php echo $key; ?>" data-post_id="<?php the_ID(); ?>" data-in_list="<?php echo $in_list ? "1" : "" ?>" name="object_evaluation" <?php checked($userVote == $key); ?> <?php if(!$can_vote && !$in_list) echo 'disabled="disabled"' ?> />
                                 <?php echo $value; ?>
                             </label>
                             <div class="object_evaluation_feedback" style="display: none;"><img style="float: left; margin-left: 5px;" src="<?php bloginfo('stylesheet_directory'); ?>/img/accept.png" alt="" /></div>

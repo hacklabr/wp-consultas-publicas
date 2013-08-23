@@ -642,7 +642,8 @@ add_action('wp_ajax_object_evaluation', function() {
     $post = get_post($postId);
     
     ob_start();
-    html::part('evaluation');
+    isset($_POST['in_list']) ? html::part('evaluation', array('in_list' => $_POST['in_list'])) : html::part('evaluation');
+    
     $data['html'] = ob_get_clean();
     $data['count'] = count_votes($postId);
     

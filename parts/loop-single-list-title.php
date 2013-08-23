@@ -18,7 +18,7 @@
     </div>
     <?php if (get_theme_option('evaluation_show_on_list')) : ?>                     
         <div class="evaluation_container" style="display: none;">
-            <?php html::part('evaluation')?>
+            <?php html::part('evaluation', array('in_list' => true))?>
         </div>
     <?php endif; ?>
 </li>
