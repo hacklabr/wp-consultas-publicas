@@ -94,8 +94,8 @@
                     <?php foreach ($evaluationOptions as $key => $value) : ?>
                         <?php if (empty($value)) break; ?>
 
-                        <div class="list_object">
-                            <label>
+                        <div class="list_object <?php if( ! $key ) echo 'nao-avaliar'; ?>">
+                            <label> 
                                 <input type="radio" value="<?php echo $key; ?>" data-post_id="<?php the_ID(); ?>" data-in_list="<?php echo $in_list ? "1" : "" ?>" name="object_evaluation" <?php checked($userVote == $key); ?> <?php if(!$can_vote && !$in_list) echo 'disabled="disabled"' ?> />
                                 <?php echo $value; ?>
                             </label>

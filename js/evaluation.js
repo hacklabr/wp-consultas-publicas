@@ -27,9 +27,12 @@ jQuery(document).ready(function() {
                     $mensagem.delay(5000).fadeOut();
                     
                 }
+                jQuery('div.nao-avaliar:has(input:checked)').hide();
             }
         });
     });
+    
+    jQuery('div.nao-avaliar:has(input:checked)').hide();
     
     // controla a exibicao da caixa de avaliacao na listagem de objetos
     jQuery('.show_evaluation').click(function() {
