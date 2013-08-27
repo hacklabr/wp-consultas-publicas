@@ -48,7 +48,9 @@ function get_theme_default_options() {
         
         'evaluation_limit'=> false,
         'evaluation_max_num' => 5,
-        'evaluation_allow_remove' => false
+        'evaluation_allow_remove' => false,
+        
+        'evaluation_limit_msg' => 'Você não pode avaliar este objeto porque você já atingiu o limite de avaliações para esta consulta.'
     );
 
 }
@@ -138,7 +140,7 @@ function theme_options_page_callback_function() {
     #exemplo_resultado { padding: 15px; border: 1px solid grey; }
     
     #evaluation_max_num_container { padding-left: 25px; }
-    #evaluation_max_num_container input { width: 50px; }
+    #evaluation_max_num_container input[type=number] { width: 50px; }
     </style>
     
     <div class="wrap span-20">
@@ -380,6 +382,12 @@ function theme_options_page_callback_function() {
                         <div id="evaluation_max_num_container">
                             <label for="evaluation_max_num">Número máximo de objetos:</label>
                             <input type="number" id="evaluation_max_num" name="theme_options[evaluation_max_num]" value="<?php echo $options['evaluation_max_num']; ?>" min="0"/>
+                            <br/>
+                            <label for="evaluation_limit_msg">
+								Texto exibido quando usuário tenta votar mas já atingiu o limite:<br/> 
+							</label>
+                            <input type="text" id="evaluation_limit_msg" name="theme_options[evaluation_limit_msg]" value="<?php echo isset($options['evaluation_limit_msg']) ? $options['evaluation_limit_msg'] : ''; ?>" class="text"/> <br/>
+                            <small>(ex: Você não pode avaliar este objeto porque você já atingiu o limite de avaliações para esta consulta)</small>
                         </div>
                         <br/><br/>
                         <p style="display:none">

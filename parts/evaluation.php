@@ -105,7 +105,7 @@
                 </form>
                 
                 <?php if(!$can_vote) :?>
-                    <em><?php _e('Você não pode avaliar este objeto porque você já atingiu o limite de avaliações para esta consulta.','consulta') ?></em>
+                    <em><?php echo get_theme_option('evaluation_limit_msg'); ?></em>
                 <?php endif; ?>
             </div>
             
