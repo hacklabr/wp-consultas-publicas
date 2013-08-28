@@ -34,7 +34,7 @@ get_header();
             
             <header>
                 <h1><a href="<?php echo get_term_link($type->slug, 'object_type'); ?>"><?php echo $type->name; ?></a></h1>
-                <?php if (isset($suggestedLabels['core_list']) && $suggestedLabels['core_list'] != ''): ?>
+                <?php if (get_theme_option('allow_suggested') && isset($suggestedLabels['core_list']) && $suggestedLabels['core_list'] != ''): ?>
                     <h4><?php echo $suggestedLabels['core_list']; ?></h4>
                 <?php endif; ?>
             </header>
