@@ -781,3 +781,10 @@ function consulta_show_user_link() {
     </div>
     <?php
 }
+
+// exibe aviso para o admin caso os permalinks estejam desabilitados
+add_action('admin_notices', function() {
+    if (!get_option('permalink_structure')) {
+        echo '<div id="message" class="error"><p><strong>O módulo de Consultas Públicas depende da estrutura de permalinks habilitada para funcionar corretamente. Por favor altere esta configuração na página <a href="' . admin_url('options-permalink.php') . '">Links permanentes</a>. Você pode escolher qualquer uma das opções, exceto a primeira chamada "Padrão".</strong><p></div>';
+    }
+});
