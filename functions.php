@@ -519,13 +519,18 @@ function get_votes($postId) {
  */
 function get_votes_data($postId) {
     $votes = array();
+    $evaluationOptions = get_theme_option('evaluation_labels');
 
     foreach (range(1, 5) as $i) {
-        $optionVotes = get_post_meta($postId, '_label_' . $i);
+        $label = 'label_' . $i;
+        $optionVotes = get_post_meta($postId, '_' . $label);
         
         if (!empty($optionVotes)) {
             foreach($optionVotes as $userId) {
-                $votes[$userId] = '_label_' . $i;
+                if (!empty($evaluationOptions[$label])) {
+                    // somente considera os votos das opções de avaliação que estejam ativas
+                    $votes[$userId] = '_' . $label;
+                }
             }
         }
     }
