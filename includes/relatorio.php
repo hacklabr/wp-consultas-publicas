@@ -91,7 +91,7 @@ class ReportTable extends WP_List_Table {
         
         $this->_column_headers = array($columns, $hidden, $sortable);
         
-        $query = "SELECT * FROM $wpdb->posts p, $wpdb->postmeta pm WHERE p.ID = pm.post_id AND p.post_type = 'object' AND p.post_status = 'publish' AND pm.meta_key = '_user_created'";
+        $query = "SELECT DISTINCT ID, post_title, meta_value FROM $wpdb->posts p, $wpdb->postmeta pm WHERE p.ID = pm.post_id AND p.post_type = 'object' AND p.post_status = 'publish' AND pm.meta_key = '_user_created'";
         
         // filtra objetos criados pelos admins ou pelos usuários
         if (isset($_REQUEST['who_created']) && $_REQUEST['who_created'] != 'all') {
@@ -196,7 +196,7 @@ function relatorio_page_callback_function() {
     
     $reportTable = new ReportTable;
     
-    $totalObjects = $wpdb->get_var("SELECT count(*) FROM $wpdb->posts p, $wpdb->postmeta pm WHERE p.ID = pm.post_id AND p.post_status = 'publish' AND p.post_type = 'object' AND pm.meta_key = '_user_created' AND pm.meta_value != 1");
+    $totalObjects = $wpdb->get_var("SELECT count(distinct(id)) FROM $wpdb->posts p, $wpdb->postmeta pm WHERE p.ID = pm.post_id AND p.post_status = 'publish' AND p.post_type = 'object' AND pm.meta_key = '_user_created' AND pm.meta_value != 1");
     
     if (get_theme_option('allow_suggested')) {
         $totalSuggestedObjects = $wpdb->get_var("SELECT count(*) FROM $wpdb->posts p, $wpdb->postmeta pm WHERE p.ID = pm.post_id AND p.post_status = 'publish' AND p.post_type = 'object' AND pm.meta_key = '_user_created' AND pm.meta_value = 1");
