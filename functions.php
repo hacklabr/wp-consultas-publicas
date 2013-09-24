@@ -616,6 +616,85 @@ function evaluation_allow_remove_votes(){
 }
 
 /**
+ * Joga na tela o gráfico de barras das avaliações feitas pelos
+ * usuários em um objeto da consulta.
+ * 
+ * @param int $postId o id do objeto avaliado
+ */
+function evaluation_build_bars_graph($postId) {
+    $evaluationOptions = get_theme_option('evaluation_labels');
+    $votes = get_votes($postId);
+    $perceVotes = consulta_get_votes_percentage($votes);
+    $i = 0;
+    
+    foreach ($evaluationOptions as $key => $value) {
+        // se a opção for Não Avaliar (valor da chave é zero)
+        if (!$key) {
+            continue;
+        }
+        
+        if (empty($value)) {
+            break;
+        }
+        ?>
+
+        <div class="clear">
+            <label><?php echo $value; ?>: <?php echo $votes[$i]; ?> (<?php echo $perceVotes[$i]; ?>%)</label>
+            <div id="evaluation_bar_bg" >
+                <div class="evaluation_bar" style="width: <?php echo $perceVotes[$i]; ?>%;"></div>
+            </div>
+        </div>
+
+        <?php $i++;
+    }
+}
+
+/**
+ * Joga na tela o gráfico de com a média das avaliações feitas
+ * pelos usuários em um objeto da consulta.
+ * 
+ * @param int $postId o id do objeto avaliado
+ */
+function evaluation_build_scale_graph($postId) {
+    $evaluationOptions = get_theme_option('evaluation_labels');
+    $votes = get_votes($postId);
+    $widthItem = consulta_get_width_item();
+    $numAlternatives = consulta_get_number_alternatives();
+    $average = consulta_get_votes_average($votes);
+    $averageWidth =  ($average  * 100) / $numAlternatives;
+    
+    ?>
+    <div id="evaluation_bar_bg" >
+        <div class="evaluation_bar" style="width: <?php echo $averageWidth; ?>%;"></div>
+    </div>
+    
+    <?php
+    $i = 1;
+    
+    foreach ($evaluationOptions as $key => $value) :
+        // se a opção for Não Avaliar (valor da chave é zero)
+        if (!$key) {
+            continue;
+        }
+        
+        if (empty($value)) {
+            break;
+        }
+        ?>
+        
+        <div class="evaluation_average_label" style="width: <?php echo $widthItem; ?>%;">
+            <div class="evaluation_average_marker"></div>
+            <p><?php echo $i, '. ', $value; ?></p>
+        </div>
+        <?php $i++;
+    endforeach; ?>
+    
+    <div class="clear"></div>
+    
+    <?php
+}
+
+/**
  * Compute user vote for object evaluation
  */
 add_action('wp_ajax_object_evaluation', function() {

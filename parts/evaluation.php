@@ -21,62 +21,14 @@
                 
                 <div id="evaluation_bars" class="clear">
                     <h5><?php _e('Resultado até o momento', 'consulta'); ?></h5>
-                    <?php
-                    $ii = 0;
-                    foreach ($evaluationOptions as $key => $value) :
-                        // se a opção for Não Avaliar (valor da chave é zero)
-                        if( ! $key )
-                            continue; 
-                        
-                        if (empty($value)) {
-                            break;
-                        }
-                        ?>
-    
-                        <div class="clear">
-                            
-                            <label><?php echo $value; ?>: <?php echo $votes[$ii]; ?> (<?php echo $perceVotes[$ii]; ?>%)</label>
-                            <div id="evaluation_bar_bg" >
-                                <div class="evaluation_bar" style="width: <?php echo $perceVotes[$ii]; ?>%;"></div>
-                            </div>
-                        </div>
-                
-                        <?php $ii ++;
-                    endforeach; ?>
+                    <?php evaluation_build_bars_graph($postId); ?>
                 </div>
             <?php elseif($evaluation_type == 'average'): ?>
-                <?php $widthItem = consulta_get_width_item(); ?>
-                <?php $numAlternatives = consulta_get_number_alternatives(); ?>
                 <?php $average = consulta_get_votes_average($votes); ?>
-                <?php $averageWidth =  ($average  * 100) / $numAlternatives; ?>
                 
                 <div id="evaluation_scale" class="clear">
                     <h5>Média de <?php echo array_sum($votes); ?> votos: <?php echo $average; ?></h5>
-                    
-                    <div id="evaluation_bar_bg" >
-                        <div class="evaluation_bar" style="width: <?php echo $averageWidth; ?>%;"></div>
-                    </div>
-                    
-                    <?php
-                    $ii = 1;
-                    foreach ($evaluationOptions as $key => $value) :
-                        // se a opção for Não Avaliar (valor da chave é zero)
-                        if( ! $key )
-                            continue; 
-                        
-                        if (empty($value)) {
-                            break;
-                        }
-                        ?>
-                        
-                        <div class="evaluation_average_label" style="width: <?php echo $widthItem; ?>%;">
-                            <div class="evaluation_average_marker"></div>
-                            <p><?php echo $ii, '. ', $value; ?></p>
-                        </div>
-                        <?php $ii++;
-                    endforeach; ?>
-                    
-                    <div class="clear"></div>
+                    <?php evaluation_build_scale_graph($postId); ?>
                 </div>
             <?php endif; ?>
         <?php endif; ?>
