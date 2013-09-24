@@ -44,7 +44,8 @@ class ReportTable extends WP_List_Table {
         
         echo "{$item->evaluation_count} "; 
         
-        if ($item->evaluation_count > 0) {
+        // mostra o link para exibir o grafico somente se houver mais de uma opção de avaliação
+        if ($item->evaluation_count > 0 && evaluation_count_options() > 1) {
             echo "<a class='toggle_evaluation'>(gráfico)</a>";
             html::part('evaluation-graph-admin', array('item' => $item));
         }

@@ -493,9 +493,17 @@ function get_user_vote($postId) {
  */
 function get_votes($postId) {
     $votes = array();
+    $evaluationOptions = get_theme_option('evaluation_labels');
 
     foreach (range(1, 5) as $i) {
-        $votes[] = count(get_post_meta($postId, '_label_' . $i));
+        $label = 'label_' . $i;
+        
+        // somente considera os votos das opções de avaliação que estejam ativas
+        if (!empty($evaluationOptions[$label])) {
+            $votes[] = count(get_post_meta($postId, '_' . $label));
+        } else {
+            $votes[] = 0;
+        }
     }
     
     return $votes;
@@ -575,9 +583,15 @@ function get_vote_label($vote_id) {
  */
 function count_votes($postId) {
     $votes = 0;
+    $evaluationOptions = get_theme_option('evaluation_labels');
 
     foreach (range(1, 5) as $i) {
-        $votes += count(get_post_meta($postId, '_label_' . $i));
+        $label = 'label_' . $i;
+        
+        // somente considera os votos das opções de avaliação que estejam ativas
+        if (!empty($evaluationOptions[$label])) {
+            $votes += count(get_post_meta($postId, '_' . $label));
+        }
     }
     
     return $votes;
@@ -692,6 +706,25 @@ function evaluation_build_scale_graph($postId) {
     <div class="clear"></div>
     
     <?php
+}
+
+/**
+ * Retorna o número de opções disponíveis para a avaliação
+ * dos objetos da consulta.
+ * 
+ * @return int
+ */
+function evaluation_count_options() {
+    $evaluationOptions = get_theme_option('evaluation_labels');
+    $count = 0;
+    
+    foreach($evaluationOptions as $key => $option) {
+        if (!empty($option) && $key !== 0) {
+            $count++;
+        }
+    }
+    
+    return $count;
 }
 
 /**
