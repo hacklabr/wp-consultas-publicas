@@ -698,26 +698,26 @@ function evaluation_build_scale_graph($postId) {
  * Compute user vote for object evaluation
  */
 add_action('wp_ajax_object_evaluation', function() {
+    global $post;
+    
     $data = array('voted'=>true);
     $userVote = filter_input(INPUT_POST, 'userVote', FILTER_SANITIZE_STRING);
     $postId = filter_input(INPUT_POST, 'postId', FILTER_SANITIZE_NUMBER_INT);
 
-    // se já votou, altera o voto deletando o antigo e inserindo novo se o voto for diferente de zero
     if ($userOldVote = get_user_vote($postId)) {
+        // se já votou, altera o voto deletando o antigo e inserindo novo se o voto for diferente de zero
         delete_post_meta($postId, $userOldVote, get_current_user_id());
-        if($userVote)
+        
+        if ($userVote) {
             add_post_meta($postId, '_' . $userVote, get_current_user_id());
-
-    // caso não tenha votado, só deixa votar se não atingiu o limite
-    }elseif($userVote && current_user_can_vote()){
+        }
+    } elseif ($userVote && current_user_can_vote()) {
+        // caso não tenha votado, só deixa votar se não atingiu o limite
         add_post_meta($postId, '_' . $userVote, get_current_user_id());
-    }else{
+    } else {
         $data['voted'] = false;
     }
-    
 
-    global $post;
-    
     $post = get_post($postId);
     
     ob_start();
@@ -745,14 +745,15 @@ function consulta_default_menu() {
 }
 
 function consulta_get_votes_percentage($votes) {
-
-    if (!is_array($votes) || sizeof($votes) < 5)
+    if (!is_array($votes) || sizeof($votes) < 5) {
         return -1;
+    }
         
     $sum = array_sum($votes); 
     
-    if ($sum < 1)
+    if ($sum < 1) {
         return array(0,0,0,0,0);
+    }
            
     $return = array();
     
@@ -761,13 +762,12 @@ function consulta_get_votes_percentage($votes) {
     }
     
     return $return;
-
 }
 
 function consulta_get_votes_average($votes) {
-
-    if (!is_array($votes) || sizeof($votes) < 5)
+    if (!is_array($votes) || sizeof($votes) < 5) {
         return -1;
+    }
         
     $sum = array_sum($votes); 
     $value = 0;
@@ -782,8 +782,6 @@ function consulta_get_votes_average($votes) {
     $value += $votes[4] * 5;
     
     return number_format($value / $sum, 1);
-    
-
 }
 
 function consulta_get_width_item() {
@@ -791,9 +789,9 @@ function consulta_get_width_item() {
 }
 
 function consulta_get_number_alternatives() {
-
     $evaluationOptions = get_theme_option('evaluation_labels');
     $i = 0;
+    
     foreach ($evaluationOptions as $key => $value) {
         // se a opção for Não Avaliar (valor da chave é zero)
         if( ! $key )
@@ -804,7 +802,6 @@ function consulta_get_number_alternatives() {
     }
     
     return $i;
-
 }
 
 /*
