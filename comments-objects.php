@@ -22,7 +22,7 @@ add_filter('comment_class','comment_add_microid');
 
         <h4>
             <?php comments_number( __i('Nenhum comentário', 'Comentários: número de comentários') , __i('1 comentário', 'Comentários: número de comentários'), __i('% comentários', 'Comentários: número de comentários') );?>
-            <?php if ('open' == $post->comment_status) : ?>
+            <?php if ('open' == $post->comment_status && !is_consulta_encerrada()) : ?>
              | <a href="#respond" title="Comente"><?php _oi('Deixe seu comentário', 'Comentários: título do formulário'); ?></a>
             <?php endif; ?>
         </h4>
