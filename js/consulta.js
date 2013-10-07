@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
                 jQuery('.hl-lightbox-close').click();
                 jQuery('#'+div_id).html(response);
             }
-        })
+        });
         return false;
     });
 });
