@@ -1,10 +1,14 @@
 <?php
 
 function get_theme_default_options() {
+    $date = new DateTime();
+    $interval = new DateInterval('P1M');
+    $date->add($interval);
+    
     return array(
         'pagina_help' => site_url('sobre'),
         'pagina_sugerir' => site_url('sugerir-uma-meta'),
-        'data_encerramento' => '2011-10-01',
+        'data_encerramento' => $date->format('Y-m-d'),
         
         'object_labels' => ObjectPostType::get_default_labels(),
         'taxonomy_labels' => ObjectPostType::get_taxonomy_default_labels(),
