@@ -353,13 +353,13 @@ function theme_options_page_callback_function() {
                     <?php _e('Texto introdutório para a página de listagem de objetos', 'consulta'); ?><br/>
                     <textarea name="theme_options[object_list_intro]" id="object_list_intro" ><?php echo $options['object_list_intro']; ?></textarea>
                     <br/><br/>
-                    <label for="list_order_by">Ordernar objetos por</label>
+                    <label for="list_order_by">Ordenar objetos por</label>
                     <select name="theme_options[list_order_by]" id="list_order_by">
                         <option value="creation_date" <?php selected('creation_date', $options['list_order_by']); ?>>Data de criação</option>
                         <option value="title" <?php selected('title', $options['list_order_by']); ?>>Título</option>
                     </select>
                     <br/><br/>
-                    <label for="list_order">Ordernar objetos em ordem</label>
+                    <label for="list_order">Ordenar objetos em ordem</label>
                     <select name="theme_options[list_order]" id="list_order">
                         <option value="asc" <?php selected('asc', $options['list_order']); ?>>Ascendente</option>
                         <option value="desc" <?php selected('desc', $options['list_order']); ?>>Descendente</option>
