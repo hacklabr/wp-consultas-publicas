@@ -183,8 +183,6 @@ if (!function_exists('consulta_comment')):
 function consulta_comment($comment, $args, $depth) {
     $GLOBALS['comment'] = $comment;
     
-    $sugestao = get_comment_meta($comment->comment_ID, 'sugestao_alteracao', true);
-    
     $autor = get_userdata($comment->user_id);
     global $wpdb;
     $level_var = $wpdb->prefix . 'user_level';
@@ -194,20 +192,14 @@ function consulta_comment($comment, $args, $depth) {
     }
     
     $commentClass = 'clearfix';
-    if ($sugestao) {
-        $commentClass = 'clearfix delegado';
-    } elseif (isset($moderador)) {
+    
+    if (isset($moderador)) {
         $commentClass = 'clearfix conselheiro';
     }
     
     ?>
     <li <?php comment_class($commentClass); ?> id="comment-<?php comment_ID(); ?>"  > 
 		<div class="content clearfix">
-		<?php if ($sugestao): ?>
-			<h6 class="alteracao">
-				<?php _oi('Sugestão de alteração para esta meta', 'Comentários: Texto que aparece acima do comentário quando este é uma sugestão de alteração'); ?>
-			</h6>
-        <?php endif; ?>
         <p class="comment-meta bottom">
           <?php echo get_comment_date() . ' às ' . get_comment_time() ; ?>                  
         </p>
@@ -229,14 +221,6 @@ function consulta_comment($comment, $args, $depth) {
 }
 
 endif; 
-
-
-function consulta_post_comment ( $post_id ) {
-    $sugestao_alteracao = $_POST['sugestao_alteracao'];
-    if ( $sugestao_alteracao ) 
-        add_comment_meta( $post_id, 'sugestao_alteracao', $sugestao_alteracao, true );
-}
-add_action( 'comment_post', 'consulta_post_comment', 1 );
 
 ////////////////////
 

@@ -45,7 +45,6 @@ header('Content-Disposition: attachment; filename=comentarios-consulta.xls');
         <td>Data</td>
         <td>Comentario</td>
         <td>Resposta a</td>
-        <td>Sugestão de alteração?</td>
         <td>Aprovado?</td>
         
         <td>Tipo</td>
@@ -64,7 +63,6 @@ header('Content-Disposition: attachment; filename=comentarios-consulta.xls');
         <td><?php echo date('d/m/Y', strtotime($c->comment_date)); ?></td>
         <td><?php echo $c->comment_content; ?></td>
         <td><?php echo $c->comment_parent; ?></td>
-        <td><?php echo get_comment_meta($c->comment_ID, 'sugestao_alteracao', true) ? 'Sim' : 'Não'; ?></td>
         <td><?php echo $c->comment_approved; ?></td>
         
         <?php $post = $wpdb->get_row("SELECT post_title, post_type FROM $wpdb->posts WHERE ID = $c->comment_post_ID"); ?>
