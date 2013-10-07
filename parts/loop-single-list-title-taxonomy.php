@@ -3,10 +3,6 @@
         <header>
             <h1>
                 <a href="<?php the_permalink();?>" title="<?php the_title_attribute();?>"><?php the_title();?></a>
-                
-                <?php if ( current_user_can('manage_options') && file_exists(WP_CONTENT_DIR . '/uploads/access_log/total/' . $post->ID)): ?>
-                <small><?php echo filesize(WP_CONTENT_DIR . '/uploads/access_log/total/' . $post->ID); ?> acessos</small>
-                <?php endif; ?>
             </h1>
     
             <div class="clear"></div>

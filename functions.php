@@ -284,39 +284,6 @@ function quebra_linha_titulo_meta($title) {
 
 }
 
-
-// loga os acessos
-function access_log_callback(){
-    if(is_singular()){
-        global $post;
-
-        if(is_writable(ABSPATH.'/wp-content/uploads/')){
-            $log_path = ABSPATH.'/wp-content/uploads/access_log/';
-            $total_path = $log_path.'total/';
-            
-            if(!file_exists($log_path)){
-                mkdir($log_path);
-                mkdir($total_path);
-            }
-            
-            $day_path = $log_path.date('Y-m-d').'/';
-            
-            if(!file_exists($day_path))
-                mkdir($day_path);
-            
-            
-            $filename_day = $day_path.$post->ID;
-            
-            $filename_total = $total_path.$post->ID;
-            file_put_contents($filename_day, 1, FILE_APPEND);
-            file_put_contents($filename_total, 1, FILE_APPEND);
-        }
-    }
-}
-
-add_action('wp_head', 'access_log_callback');
-
-
 function is_consulta_encerrada() {
 
     $datafinal = strtotime(get_theme_option('data_encerramento'));
