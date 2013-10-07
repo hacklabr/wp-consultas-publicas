@@ -12,9 +12,9 @@
         </header>
         
         <div class="comments-number" title="<?php comments_number('nenhum comentário','1 comentário','% comentários');?>"><?php comments_number('0','1','%');?></div>
-        <?php html::part('show_evaluation'); ?>
-
-
+        <?php if (get_theme_option('use_evaluation')) : ?>
+            <?php html::part('show_evaluation'); ?>
+        <?php endif; ?>
     </div>
     <?php if (get_theme_option('evaluation_show_on_list')) : ?>                     
         <div class="evaluation_container" style="display: none;">
