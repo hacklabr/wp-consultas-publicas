@@ -357,6 +357,7 @@ function theme_options_page_callback_function() {
                     <select name="theme_options[list_order_by]" id="list_order_by">
                         <option value="creation_date" <?php selected('creation_date', $options['list_order_by']); ?>>Data de criação</option>
                         <option value="title" <?php selected('title', $options['list_order_by']); ?>>Título</option>
+                        <option value="rand" <?php selected('rand', $options['list_order_by']); ?>>Ordenação aleatória</option>
                     </select>
                     <br/><br/>
                     <label for="list_order">Ordenar objetos em ordem</label>
