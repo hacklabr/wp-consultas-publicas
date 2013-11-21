@@ -853,3 +853,18 @@ add_action('admin_notices', function() {
         echo '<div id="message" class="error"><p><strong>O módulo de Consultas Públicas depende da estrutura de permalinks habilitada para funcionar corretamente. Por favor altere esta configuração na página <a href="' . admin_url('options-permalink.php') . '">Links permanentes</a>. Você pode escolher qualquer uma das opções, exceto a primeira chamada "Padrão".</strong><p></div>';
     }
 });
+
+/**
+ * hook para apagar registros de votos caso o item seja movido para o lixo
+ *
+ * @return null
+ */
+add_action( 'wp_trash_post', 'consulta_trash_votes');
+function consulta_trash_votes($pid) {
+    global $wpdb;
+    $table = ($wpdb->postmeta) ? $wpdb->postmeta : '';
+    if ($wpdb->get_var($wpdb->prepare( "SELECT COUNT(meta_id) FROM $table WHERE meta_key IN ( '_label_1' , '_label_2' , '_label_3' , '_label_4' , '_label_5' ) AND post_id = %d", $pid))) {
+      return $wpdb->query( $wpdb->prepare( "DELETE FROM $table WHERE meta_key IN ( '_label_1' , '_label_2' , '_label_3' , '_label_4' , '_label_5' ) AND post_id = %d", $pid));
+    }
+    return true;
+}
