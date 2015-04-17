@@ -859,7 +859,7 @@ add_action('admin_notices', function() {
  *
  * @return null
  */
-add_action( 'wp_trash_post', 'consulta_trash_votes');
+add_action( 'delete_post', 'consulta_trash_votes');
 function consulta_trash_votes($pid) {
     global $wpdb;
     $table = ($wpdb->postmeta) ? $wpdb->postmeta : '';
