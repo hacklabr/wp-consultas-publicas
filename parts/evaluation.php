@@ -54,6 +54,8 @@
                             <div class="object_evaluation_feedback" style="display: none;"><img style="float: left; margin-left: 5px;" src="<?php bloginfo('stylesheet_directory'); ?>/img/accept.png" alt="" /></div>
                         </div>
                     <?php endforeach; ?>
+
+                    <div class="object_evaluation_response_feedback" style="display: none;"><p style="padding: 10px; border: 1px solid #006633;"><?php echo get_theme_option('evaluation_response'); ?></p></div>
                 </form>
                 
                 <?php if(!$can_vote) :?>

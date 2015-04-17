@@ -19,11 +19,11 @@
         </div>
     </div>
     <!-- .post-content -->
-    <footer class="clearfix"> 
-        <?php html::part('interaction'); ?>
-    </footer>
     <div class="evaluation_container">
         <?php html::part('evaluation')?>
     </div>
+    <footer class="clearfix"> 
+        <?php html::part('interaction'); ?>
+    </footer>
 </article>
 <!-- .post -->

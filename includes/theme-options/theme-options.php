@@ -46,6 +46,7 @@ function get_theme_default_options() {
             'label_5' => '',
         ),
         'evaluation_text' => __('Você concorda com esta proposta?', 'consulta'),
+        'evaluation_response' => __('Agradecemos a sua participação! ', 'consulta'),
         'evaluation_type' => 'percentage',
         
         'pagina_participe' => '',
@@ -408,6 +409,9 @@ function theme_options_page_callback_function() {
                         <br/><br/>
                         <?php _e('Texto introdutório para a avaliação quantitativa', 'consulta'); ?><br/>
                         <textarea name="theme_options[evaluation_text]" id="object_list_intro" ><?php echo $options['evaluation_text']; ?></textarea>
+                        <br/><br/>
+                        <?php _e('Texto de resposta ao usuário após avaliação quantitativa ', 'consulta'); ?><br/>
+                        <textarea name="theme_options[evaluation_response]" id="object_response" ><?php echo $options['evaluation_response']; ?></textarea>
                         <br/><br/>
                         <table class="wp-list-table widefat fixed">
                             <tr>

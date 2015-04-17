@@ -18,6 +18,9 @@ jQuery(document).ready(function() {
                 if(data.voted){
                     $container.find('input[type="radio"][value="'+value+'"]').parents('.list_object')
                         .find('.object_evaluation_feedback').show().delay(2000).fadeOut();
+
+                    $container.find('.object_evaluation_response_feedback').show();
+                    
                 }else{
                     $mensagem = $container.find('em');
                     
